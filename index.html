@@ -3,26 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bonbons de Pinchat — Snacks & Livraison locale</title>
+    <title>Bonbons de Pinchat | Commande et livraison</title>
+    <meta name="description" content="Bonbons de Pinchat. Commande en ligne et livraison locale pour Pinchat, Acacias, Carouge et zones environnantes." />
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
   <body class="min-h-screen bg-slate-50 text-slate-900">
-    <header class="sticky top-0 z-30 bg-white/85 backdrop-blur border-b border-slate-200">
-      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center font-semibold">
+    <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
+      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center font-semibold shrink-0">
             BP
           </div>
-          <div class="leading-tight">
-            <div class="text-base font-semibold">Bonbons de Pinchat</div>
-            <div class="text-xs text-slate-500">Snacks — Livraison locale</div>
+          <div class="min-w-0">
+            <div class="text-base font-semibold truncate">Bonbons de Pinchat</div>
+            <div class="text-xs text-slate-500 truncate">Commande de snacks avec livraison locale</div>
           </div>
         </div>
 
         <a
           href="#catalogue"
-          class="inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-medium bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-900"
+          class="inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-900"
         >
           Voir le catalogue
         </a>
@@ -32,124 +33,186 @@
     <main class="mx-auto max-w-6xl px-4 py-8">
       <section class="mb-8">
         <div class="rounded-2xl border border-amber-200 bg-amber-50 p-5">
-          <div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+          <h1 class="text-xl sm:text-2xl font-semibold tracking-tight">Livraison locale pour Bonbons de Pinchat</h1>
+          <p class="mt-2 text-sm text-slate-700">
+            Livraison réservée aux élèves de Pinchat et aux habitants des Acacias, Carouge et zones environnantes.
+            Livraison gratuite pour Pinchat.
+          </p>
+
+          <div class="mt-4 grid gap-3 sm:grid-cols-3">
+            <div class="rounded-2xl bg-white border border-slate-200 p-4">
+              <div class="text-sm font-semibold">Zones desservies</div>
+              <div class="mt-1 text-sm text-slate-700">Pinchat, Acacias, Carouge, Vessy</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-slate-200 p-4">
+              <div class="text-sm font-semibold">Paiement</div>
+              <div class="mt-1 text-sm text-slate-700">Paiement en espèces uniquement à la livraison</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-slate-200 p-4">
+              <div class="text-sm font-semibold">Calcul automatique</div>
+              <div class="mt-1 text-sm text-slate-700">Sous total, frais de livraison et total final</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid gap-6 lg:grid-cols-12">
+        <section id="catalogue" class="lg:col-span-7">
+          <div class="flex items-end justify-between gap-3">
             <div>
-              <h1 class="text-xl sm:text-2xl font-semibold tracking-tight">Livraison locale rapide</h1>
-              <p class="mt-2 text-sm text-slate-700">
-                Livraison exclusivement pour les élèves de Pinchat et les habitants des Acacias, Carouge et zones
-                environnantes.
+              <h2 class="text-lg sm:text-xl font-semibold tracking-tight">Catalogue</h2>
+              <p class="mt-1 text-sm text-slate-600">Sélectionnez vos articles puis finalisez la commande.</p>
+            </div>
+          </div>
+
+          <div id="productsGrid" class="mt-5 grid gap-4 sm:grid-cols-2"></div>
+        </section>
+
+        <aside class="lg:col-span-5">
+          <div id="checkoutCard" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <h2 class="text-lg font-semibold tracking-tight">Panier et commande</h2>
+                <p class="mt-1 text-sm text-slate-600">Vérifiez votre panier puis complétez le formulaire.</p>
+              </div>
+
+              <button
+                id="clearBtn"
+                type="button"
+                class="text-xs font-semibold text-slate-600 hover:text-slate-900"
+              >
+                Vider le panier
+              </button>
+            </div>
+
+            <div class="mt-4">
+              <div id="cartEmpty" class="text-sm text-slate-600">Votre panier est vide.</div>
+              <div id="cartList" class="hidden">
+                <ul id="cartItems" class="space-y-3"></ul>
+              </div>
+            </div>
+
+            <div class="mt-5 rounded-2xl bg-slate-50 border border-slate-200 p-4">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-slate-600">Sous total</span>
+                <span id="subtotal" class="font-semibold">0.00 CHF</span>
+              </div>
+              <div class="mt-2 flex items-center justify-between text-sm">
+                <span class="text-slate-600">Frais de livraison</span>
+                <span id="deliveryFee" class="font-semibold">0.00 CHF</span>
+              </div>
+              <div class="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between">
+                <span class="font-semibold">Total</span>
+                <span id="total" class="font-semibold">0.00 CHF</span>
+              </div>
+            </div>
+
+            <form id="orderForm" class="mt-5 space-y-4">
+              <div>
+                <label for="name" class="block text-sm font-semibold">Nom et prénom</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  required
+                  class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/20 focus:border-slate-400"
+                  placeholder="Votre nom"
+                />
+              </div>
+
+              <div>
+                <label for="location" class="block text-sm font-semibold">Lieu de livraison</label>
+                <select
+                  id="location"
+                  name="location"
+                  required
+                  class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/20 focus:border-slate-400"
+                >
+                  <option value="" selected disabled>Sélectionnez un lieu</option>
+                  <option value="pinchat">Pinchat</option>
+                  <option value="acacias">Acacias</option>
+                  <option value="carouge">Carouge</option>
+                  <option value="vessy">Vessy</option>
+                </select>
+                <p class="mt-2 text-xs text-slate-500">
+                  Pinchat est gratuit. Acacias et Carouge sont à 2 CHF. Vessy est à 3 CHF.
+                </p>
+              </div>
+
+              <div>
+                <label for="contact" class="block text-sm font-semibold">Coordonnées de contact</label>
+                <input
+                  id="contact"
+                  name="contact"
+                  type="text"
+                  autocomplete="tel"
+                  required
+                  class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/20 focus:border-slate-400"
+                  placeholder="Téléphone ou autre moyen de contact"
+                />
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <label class="flex items-start gap-3">
+                  <input
+                    id="allergy"
+                    name="allergy"
+                    type="checkbox"
+                    class="mt-1 h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900/20"
+                    required
+                  />
+                  <span class="text-sm text-slate-800">
+                    Je confirme avoir pris connaissance des ingrédients et des risques d'allergies.
+                  </span>
+                </label>
+              </div>
+
+              <div class="space-y-2">
+                <button
+                  id="submitBtn"
+                  type="submit"
+                  class="w-full inline-flex items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-900 disabled:opacity-40 disabled:cursor-not-allowed"
+                  disabled
+                >
+                  Commander
+                </button>
+
+                <p id="submitHint" class="text-xs text-slate-500">
+                  Le bouton Commander est activé après validation du panier, du lieu de livraison et de la confirmation allergies.
+                </p>
+
+                <p id="errorMsg" class="hidden text-sm text-red-700"></p>
+              </div>
+
+              <input type="hidden" id="itemsField" name="items" />
+              <input type="hidden" id="pricingField" name="pricing" />
+              <input type="hidden" id="totalField" name="total" />
+              <input type="hidden" id="deliveryFeeField" name="delivery_fee" />
+              <input type="hidden" id="allergyField" name="allergy_confirmation" />
+            </form>
+
+            <div id="successState" class="hidden mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+              <div class="text-base font-semibold text-emerald-900">Commande envoyée avec succès</div>
+              <p class="mt-2 text-sm text-emerald-900">
+                Merci. Votre commande a bien été transmise. Vous serez contacté rapidement afin de confirmer la livraison.
+              </p>
+              <p class="mt-2 text-sm text-emerald-900">
+                Rappel : paiement en espèces uniquement à la livraison.
               </p>
             </div>
-
-            <div class="mt-3 sm:mt-0 text-sm font-medium text-slate-900">
-              Paiement en espèces uniquement à la livraison
-            </div>
           </div>
-
-          <div class="mt-5 grid gap-4 md:grid-cols-12">
-            <div class="md:col-span-7">
-              <div class="rounded-2xl bg-white border border-slate-200 p-4">
-                <div class="flex items-center justify-between gap-3">
-                  <div>
-                    <div class="text-sm font-semibold">Zone de livraison (obligatoire)</div>
-                    <div class="text-xs text-slate-500">Les frais sont calculés automatiquement.</div>
-                  </div>
-                  <div id="feeBadge" class="hidden text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-900 text-white">
-                    —
-                  </div>
-                </div>
-
-                <div class="mt-3">
-                  <label for="zone" class="sr-only">Sélectionner une zone</label>
-                  <select
-                    id="zone"
-                    class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/20 focus:border-slate-400"
-                    required
-                  >
-                    <option value="" selected disabled>Sélectionnez votre zone</option>
-                    <option value="standard">Standard (Pinchat, Acacias, Carouge, etc.) — 2 CHF</option>
-                    <option value="vessy">Vessy — 3 CHF</option>
-                  </select>
-
-                  <div id="zoneHint" class="mt-2 text-xs text-slate-500">
-                    Veuillez sélectionner une zone pour activer le calcul du total final.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="md:col-span-5">
-              <div class="rounded-2xl bg-white border border-slate-200 p-4">
-                <div class="flex items-center justify-between">
-                  <div class="text-sm font-semibold">Récapitulatif</div>
-                  <button
-                    id="clearBtn"
-                    type="button"
-                    class="text-xs font-medium text-slate-600 hover:text-slate-900"
-                  >
-                    Vider
-                  </button>
-                </div>
-
-                <div id="cartEmpty" class="mt-3 text-sm text-slate-600">
-                  Votre panier est vide.
-                </div>
-
-                <div id="cartList" class="mt-3 hidden">
-                  <ul id="cartItems" class="space-y-2"></ul>
-                </div>
-
-                <div class="mt-4 border-t border-slate-200 pt-4 space-y-2 text-sm">
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-600">Sous-total</span>
-                    <span id="subtotal" class="font-semibold">0.00 CHF</span>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <span class="text-slate-600">Frais de livraison</span>
-                    <span id="deliveryFee" class="font-semibold">—</span>
-                  </div>
-                  <div class="flex items-center justify-between text-base">
-                    <span class="font-semibold">Total</span>
-                    <span id="total" class="font-semibold">—</span>
-                  </div>
-
-                  <button
-                    id="orderBtn"
-                    type="button"
-                    class="mt-3 w-full inline-flex items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-900 disabled:opacity-40 disabled:cursor-not-allowed"
-                    disabled
-                  >
-                    Commander
-                  </button>
-
-                  <div id="orderHint" class="text-xs text-slate-500">
-                    Ajoutez des articles et sélectionnez une zone pour commander.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </aside>
       </section>
 
-      <section id="catalogue" class="mb-10">
-        <div class="flex items-end justify-between gap-3">
-          <div>
-            <h2 class="text-lg sm:text-xl font-semibold tracking-tight">Catalogue</h2>
-            <p class="mt-1 text-sm text-slate-600">Sélectionnez vos articles, puis finalisez la commande.</p>
-          </div>
-        </div>
-
-        <div id="productsGrid" class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></div>
-      </section>
-
-      <section class="pb-10">
+      <section class="mt-8">
         <div class="rounded-2xl border border-slate-200 bg-white p-5">
-          <div class="text-sm font-semibold">Informations importantes</div>
+          <div class="text-sm font-semibold">Informations de livraison</div>
           <ul class="mt-2 text-sm text-slate-700 list-disc pl-5 space-y-1">
-            <li>Livraison exclusivement pour les élèves de Pinchat et les habitants des Acacias, Carouge et zones environnantes.</li>
-            <li>Zone obligatoire : Standard (2 CHF) ou Vessy (3 CHF).</li>
+            <li>Livraison réservée aux élèves de Pinchat et aux habitants des Acacias, Carouge et zones environnantes.</li>
+            <li>Pinchat : 0 CHF. Acacias et Carouge : 2 CHF. Vessy : 3 CHF.</li>
             <li>Paiement en espèces uniquement à la livraison.</li>
+            <li>Veuillez vérifier les ingrédients de chaque produit si vous avez des allergies.</li>
           </ul>
         </div>
       </section>
@@ -159,25 +222,13 @@
       <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-slate-600">
         <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>© <span id="year"></span> Bonbons de Pinchat</div>
-          <div class="text-xs text-slate-500">Site one-page optimisé pour mobile — GitHub Pages</div>
+          <div class="text-xs text-slate-500">Site one page optimisé pour mobile et hébergé sur GitHub Pages</div>
         </div>
       </div>
     </footer>
 
     <script>
-      const FORM_BASE =
-        "https://docs.google.com/forms/d/e/1FAIpQLSfWW2GXxYsCjU82BkPRLCbL4WDVrbZ8qsL5juSXr-msIsoE_A/viewform";
-
-      const FORM_FIELDS = {
-        order: "entry.1111111111",
-        total: "entry.2222222222",
-        zone: "entry.3333333333",
-      };
-
-      const ZONES = [
-        { id: "standard", label: "Standard (Pinchat, Acacias, Carouge, etc.)", fee: 2 },
-        { id: "vessy", label: "Vessy", fee: 3 },
-      ];
+      const FORMSPREE_ENDPOINT = "https://formspree.io/f/XXXXXXXX"; // Remplacez par votre endpoint Formspree
 
       const CATALOGUE = [
         {
@@ -195,169 +246,155 @@
         },
       ];
 
+      const DELIVERY_FEES = {
+        pinchat: 0,
+        acacias: 2,
+        carouge: 2,
+        vessy: 3,
+      };
+
       const els = {
-        zone: document.getElementById("zone"),
-        feeBadge: document.getElementById("feeBadge"),
-        zoneHint: document.getElementById("zoneHint"),
         productsGrid: document.getElementById("productsGrid"),
+        clearBtn: document.getElementById("clearBtn"),
         cartEmpty: document.getElementById("cartEmpty"),
         cartList: document.getElementById("cartList"),
         cartItems: document.getElementById("cartItems"),
         subtotal: document.getElementById("subtotal"),
         deliveryFee: document.getElementById("deliveryFee"),
         total: document.getElementById("total"),
-        orderBtn: document.getElementById("orderBtn"),
-        orderHint: document.getElementById("orderHint"),
-        clearBtn: document.getElementById("clearBtn"),
+
+        orderForm: document.getElementById("orderForm"),
+        name: document.getElementById("name"),
+        location: document.getElementById("location"),
+        contact: document.getElementById("contact"),
+        allergy: document.getElementById("allergy"),
+        submitBtn: document.getElementById("submitBtn"),
+        submitHint: document.getElementById("submitHint"),
+        errorMsg: document.getElementById("errorMsg"),
+
+        itemsField: document.getElementById("itemsField"),
+        pricingField: document.getElementById("pricingField"),
+        totalField: document.getElementById("totalField"),
+        deliveryFeeField: document.getElementById("deliveryFeeField"),
+        allergyField: document.getElementById("allergyField"),
+
+        successState: document.getElementById("successState"),
         year: document.getElementById("year"),
       };
 
       const state = {
-        zoneId: "",
         cart: new Map(),
       };
 
-      const chf = (n) => `${n.toFixed(2)} CHF`;
+      const chf = (n) => `${Number(n).toFixed(2)} CHF`;
 
-      const getZone = (id) => ZONES.find((z) => z.id === id) || null;
-
-      const cartToLines = () => {
-        const lines = [];
-        for (const [id, qty] of state.cart.entries()) {
-          const p = CATALOGUE.find((x) => x.id === id);
-          if (!p) continue;
-          lines.push(`${p.nom} x${qty} (${p.prix} CHF)`);
-        }
-        return lines;
-      };
+      const getProduct = (id) => CATALOGUE.find((p) => p.id === id) || null;
 
       const calcSubtotal = () => {
         let s = 0;
         for (const [id, qty] of state.cart.entries()) {
-          const p = CATALOGUE.find((x) => x.id === id);
+          const p = getProduct(id);
           if (!p) continue;
           s += p.prix * qty;
         }
         return s;
       };
 
-      const buildFormUrl = ({ orderText, total, zoneLabel }) => {
-        const u = new URL(FORM_BASE);
-        u.searchParams.set("usp", "pp_url");
+      const calcDeliveryFee = () => {
+        const loc = els.location.value;
+        if (!loc || !(loc in DELIVERY_FEES)) return 0;
+        return DELIVERY_FEES[loc];
+      };
 
-        u.searchParams.set("order", orderText);
-        u.searchParams.set("total", `${total.toFixed(2)} CHF`);
-        u.searchParams.set("zone", zoneLabel);
-
-        if (FORM_FIELDS.order) u.searchParams.set(FORM_FIELDS.order, orderText);
-        if (FORM_FIELDS.total) u.searchParams.set(FORM_FIELDS.total, `${total.toFixed(2)} CHF`);
-        if (FORM_FIELDS.zone) u.searchParams.set(FORM_FIELDS.zone, zoneLabel);
-
-        return u.toString();
+      const cartLines = () => {
+        const lines = [];
+        for (const [id, qty] of state.cart.entries()) {
+          const p = getProduct(id);
+          if (!p) continue;
+          const lineTotal = p.prix * qty;
+          lines.push(`${p.nom} x${qty} | ${p.prix} CHF | ${lineTotal} CHF`);
+        }
+        return lines;
       };
 
       const renderProducts = () => {
         els.productsGrid.innerHTML = "";
-
         for (const p of CATALOGUE) {
           const card = document.createElement("article");
-          card.className =
-            "rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm hover:shadow transition";
+          card.className = "rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm";
 
-          const imgWrap = document.createElement("div");
-          imgWrap.className = "aspect-[4/3] bg-slate-100 overflow-hidden";
-
-          const img = document.createElement("img");
-          img.src = p.image;
-          img.alt = p.nom;
-          img.loading = "lazy";
-          img.className = "h-full w-full object-cover";
-
-          imgWrap.appendChild(img);
-
-          const body = document.createElement("div");
-          body.className = "p-4";
-
-          const titleRow = document.createElement("div");
-          titleRow.className = "flex items-start justify-between gap-3";
-
-          const name = document.createElement("h3");
-          name.className = "text-sm font-semibold";
-          name.textContent = p.nom;
-
-          const price = document.createElement("div");
-          price.className = "text-sm font-semibold";
-          price.textContent = `${p.prix} CHF`;
-
-          titleRow.appendChild(name);
-          titleRow.appendChild(price);
-
-          const actions = document.createElement("div");
-          actions.className = "mt-4 flex items-center gap-2";
-
-          const addBtn = document.createElement("button");
-          addBtn.type = "button";
-          addBtn.className =
-            "w-full inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-900";
-          addBtn.textContent = "Ajouter au panier";
-          addBtn.addEventListener("click", () => {
-            const cur = state.cart.get(p.id) || 0;
-            state.cart.set(p.id, cur + 1);
-            renderCart();
-            updateTotals();
-          });
-
-          actions.appendChild(addBtn);
-
-          body.appendChild(titleRow);
-          body.appendChild(actions);
-
-          card.appendChild(imgWrap);
-          card.appendChild(body);
-
+          card.innerHTML = `
+            <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
+              <img src="${p.image}" alt="${p.nom}" class="h-full w-full object-cover" loading="lazy">
+            </div>
+            <div class="p-4">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-sm font-semibold">${p.nom}</h3>
+                <div class="text-sm font-semibold">${p.prix} CHF</div>
+              </div>
+              <button
+                type="button"
+                class="mt-4 w-full inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-900"
+                data-add="${p.id}"
+              >
+                Ajouter au panier
+              </button>
+            </div>
+          `;
           els.productsGrid.appendChild(card);
         }
+
+        els.productsGrid.querySelectorAll("[data-add]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-add");
+            state.cart.set(id, (state.cart.get(id) || 0) + 1);
+            renderCart();
+            updateTotals();
+            updateSubmitState();
+          });
+        });
       };
 
       const renderCart = () => {
-        const hasItems = state.cart.size > 0;
-
-        els.cartEmpty.classList.toggle("hidden", hasItems);
-        els.cartList.classList.toggle("hidden", !hasItems);
-
         els.cartItems.innerHTML = "";
 
-        if (!hasItems) return;
+        if (state.cart.size === 0) {
+          els.cartEmpty.classList.remove("hidden");
+          els.cartList.classList.add("hidden");
+          return;
+        }
+
+        els.cartEmpty.classList.add("hidden");
+        els.cartList.classList.remove("hidden");
 
         for (const [id, qty] of state.cart.entries()) {
-          const p = CATALOGUE.find((x) => x.id === id);
+          const p = getProduct(id);
           if (!p) continue;
 
           const li = document.createElement("li");
-          li.className = "flex items-center justify-between gap-3";
+          li.className = "flex items-start justify-between gap-3";
 
           const left = document.createElement("div");
           left.className = "min-w-0";
 
-          const line1 = document.createElement("div");
-          line1.className = "text-sm font-medium truncate";
-          line1.textContent = p.nom;
+          const title = document.createElement("div");
+          title.className = "text-sm font-semibold truncate";
+          title.textContent = p.nom;
 
-          const line2 = document.createElement("div");
-          line2.className = "text-xs text-slate-500";
-          line2.textContent = `${p.prix} CHF × ${qty}`;
+          const meta = document.createElement("div");
+          meta.className = "mt-0.5 text-xs text-slate-500";
+          meta.textContent = `${p.prix} CHF x ${qty}`;
 
-          left.appendChild(line1);
-          left.appendChild(line2);
+          left.appendChild(title);
+          left.appendChild(meta);
 
           const right = document.createElement("div");
           right.className = "flex items-center gap-2";
 
           const minus = document.createElement("button");
           minus.type = "button";
-          minus.className =
-            "h-9 w-9 rounded-xl border border-slate-300 bg-white text-slate-900 hover:bg-slate-50";
-          minus.textContent = "−";
+          minus.className = "h-9 w-9 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-900";
+          minus.textContent = "-";
           minus.addEventListener("click", () => {
             const cur = state.cart.get(id) || 0;
             const next = cur - 1;
@@ -365,23 +402,22 @@
             else state.cart.set(id, next);
             renderCart();
             updateTotals();
+            updateSubmitState();
           });
 
           const qtyBadge = document.createElement("div");
-          qtyBadge.className =
-            "min-w-[2.25rem] text-center text-sm font-semibold rounded-xl bg-slate-100 px-2 py-2";
+          qtyBadge.className = "min-w-[2.25rem] text-center text-sm font-semibold rounded-xl bg-slate-100 px-2 py-2";
           qtyBadge.textContent = String(qty);
 
           const plus = document.createElement("button");
           plus.type = "button";
-          plus.className =
-            "h-9 w-9 rounded-xl border border-slate-300 bg-white text-slate-900 hover:bg-slate-50";
+          plus.className = "h-9 w-9 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-900";
           plus.textContent = "+";
           plus.addEventListener("click", () => {
-            const cur = state.cart.get(id) || 0;
-            state.cart.set(id, cur + 1);
+            state.cart.set(id, (state.cart.get(id) || 0) + 1);
             renderCart();
             updateTotals();
+            updateSubmitState();
           });
 
           right.appendChild(minus);
@@ -397,80 +433,148 @@
 
       const updateTotals = () => {
         const subtotal = calcSubtotal();
+        const fee = calcDeliveryFee();
+        const total = subtotal + fee;
+
         els.subtotal.textContent = chf(subtotal);
+        els.deliveryFee.textContent = chf(fee);
+        els.total.textContent = chf(total);
 
-        const zone = getZone(state.zoneId);
-
-        if (!zone) {
-          els.deliveryFee.textContent = "—";
-          els.total.textContent = "—";
-          els.feeBadge.classList.add("hidden");
-          els.zoneHint.classList.remove("hidden");
-        } else {
-          els.deliveryFee.textContent = chf(zone.fee);
-          els.total.textContent = chf(subtotal + zone.fee);
-          els.feeBadge.textContent = `Frais : ${zone.fee} CHF`;
-          els.feeBadge.classList.remove("hidden");
-          els.zoneHint.classList.add("hidden");
-        }
-
-        const canOrder = state.cart.size > 0 && !!zone;
-        els.orderBtn.disabled = !canOrder;
-
-        if (!state.cart.size) {
-          els.orderHint.textContent = "Ajoutez des articles et sélectionnez une zone pour commander.";
-        } else if (!zone) {
-          els.orderHint.textContent = "Veuillez sélectionner une zone pour calculer le total et commander.";
-        } else {
-          els.orderHint.textContent = "Votre commande sera transmise via Google Forms.";
-        }
+        els.itemsField.value = cartLines().join("\n");
+        els.pricingField.value = `Sous total: ${subtotal.toFixed(2)} CHF | Frais livraison: ${fee.toFixed(2)} CHF`;
+        els.totalField.value = `${total.toFixed(2)} CHF`;
+        els.deliveryFeeField.value = `${fee.toFixed(2)} CHF`;
+        els.allergyField.value = els.allergy.checked ? "Oui" : "Non";
       };
 
-      const handleOrder = () => {
-        const zone = getZone(state.zoneId);
-        if (!zone || state.cart.size === 0) return;
+      const updateSubmitState = () => {
+        const hasCart = state.cart.size > 0;
+        const hasLocation = !!els.location.value;
+        const hasAllergy = els.allergy.checked;
+        const basicFieldsFilled = els.name.value.trim().length > 0 && els.contact.value.trim().length > 0;
 
-        const lines = cartToLines();
-        const subtotal = calcSubtotal();
-        const total = subtotal + zone.fee;
+        const ok = hasCart && hasLocation && hasAllergy && basicFieldsFilled;
+        els.submitBtn.disabled = !ok;
+      };
 
-        const orderText =
-          `Bonbons de Pinchat — Détail de la commande\n` +
-          `Zone : ${zone.label}\n` +
-          `Frais de livraison : ${zone.fee} CHF\n` +
-          `Articles :\n- ${lines.join("\n- ")}\n` +
-          `Sous-total : ${subtotal.toFixed(2)} CHF\n` +
-          `Total : ${total.toFixed(2)} CHF\n` +
-          `Paiement : espèces uniquement à la livraison`;
+      const setError = (msg) => {
+        if (!msg) {
+          els.errorMsg.classList.add("hidden");
+          els.errorMsg.textContent = "";
+          return;
+        }
+        els.errorMsg.textContent = msg;
+        els.errorMsg.classList.remove("hidden");
+      };
 
-        const url = buildFormUrl({
-          orderText,
-          total,
-          zoneLabel: zone.label,
+      const lockForm = (locked) => {
+        const controls = els.orderForm.querySelectorAll("input, select, button, textarea");
+        controls.forEach((c) => (c.disabled = locked));
+      };
+
+      const showSuccess = () => {
+        els.orderForm.classList.add("hidden");
+        els.successState.classList.remove("hidden");
+      };
+
+      const postToFormspree = async (payload) => {
+        const res = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(payload),
         });
 
-        window.open(url, "_blank", "noopener,noreferrer");
+        if (!res.ok) {
+          let detail = "";
+          try {
+            const data = await res.json();
+            if (data && data.errors && data.errors.length) detail = data.errors[0].message || "";
+          } catch (_) {}
+          throw new Error(detail || "La soumission a échoué. Veuillez réessayer.");
+        }
+        return res;
       };
 
-      const clearCart = () => {
+      els.clearBtn.addEventListener("click", () => {
         state.cart.clear();
         renderCart();
         updateTotals();
-      };
-
-      els.zone.addEventListener("change", (e) => {
-        state.zoneId = e.target.value;
-        updateTotals();
+        updateSubmitState();
+        setError("");
       });
 
-      els.orderBtn.addEventListener("click", handleOrder);
-      els.clearBtn.addEventListener("click", clearCart);
+      ["input", "change"].forEach((evt) => {
+        els.name.addEventListener(evt, () => updateSubmitState());
+        els.contact.addEventListener(evt, () => updateSubmitState());
+        els.location.addEventListener(evt, () => {
+          updateTotals();
+          updateSubmitState();
+        });
+        els.allergy.addEventListener(evt, () => {
+          updateTotals();
+          updateSubmitState();
+        });
+      });
+
+      els.orderForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        setError("");
+
+        if (state.cart.size === 0) {
+          setError("Veuillez ajouter au moins un article au panier.");
+          updateSubmitState();
+          return;
+        }
+
+        if (!els.location.value) {
+          setError("Veuillez sélectionner un lieu de livraison.");
+          updateSubmitState();
+          return;
+        }
+
+        if (!els.allergy.checked) {
+          setError("Veuillez confirmer la prise de connaissance des ingrédients et des risques d'allergies.");
+          updateSubmitState();
+          return;
+        }
+
+        const subtotal = calcSubtotal();
+        const fee = calcDeliveryFee();
+        const total = subtotal + fee;
+
+        const payload = {
+          entreprise: "Bonbons de Pinchat",
+          nom: els.name.value.trim(),
+          contact: els.contact.value.trim(),
+          lieu_de_livraison: els.location.value,
+          confirmation_allergies: true,
+          articles: Array.from(state.cart.entries()).map(([id, qty]) => {
+            const p = getProduct(id);
+            return { id, nom: p ? p.nom : id, quantite: qty, prix_unitaire_chf: p ? p.prix : 0 };
+          }),
+          sous_total_chf: Number(subtotal.toFixed(2)),
+          frais_livraison_chf: Number(fee.toFixed(2)),
+          total_chf: Number(total.toFixed(2)),
+        };
+
+        lockForm(true);
+
+        try {
+          await postToFormspree(payload);
+          showSuccess();
+        } catch (err) {
+          setError(err && err.message ? err.message : "Erreur lors de l'envoi. Veuillez réessayer.");
+          lockForm(false);
+          updateSubmitState();
+        }
+      });
 
       els.year.textContent = String(new Date().getFullYear());
 
       renderProducts();
       renderCart();
       updateTotals();
+      updateSubmitState();
     </script>
   </body>
 </html>
