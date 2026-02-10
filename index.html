@@ -3,86 +3,126 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bonbons de Pinchat | Commande et livraison</title>
-    <meta name="description" content="Bonbons de Pinchat. Commande en ligne et livraison locale pour Pinchat, Acacias, Carouge et zones environnantes." />
+    <title>Bonbons de Pinchat | Boutique</title>
+
+    <!-- Tailwind CSS via CDN (optionnel mais recommandé) -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      /* Ajustements légers, mobile-first */
+      html, body { height: 100%; }
+      .card {
+        border-radius: 1rem;
+        border: 1px solid rgb(226 232 240);
+        background: white;
+      }
+      .btn {
+        border-radius: 0.9rem;
+        padding: 0.75rem 1rem;
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+      .btn-primary {
+        background: rgb(15 23 42);
+        color: white;
+      }
+      .btn-primary:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .btn-ghost {
+        background: white;
+        border: 1px solid rgb(203 213 225);
+        color: rgb(15 23 42);
+      }
+      .btn-ghost:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      .input {
+        width: 100%;
+        border-radius: 0.9rem;
+        border: 1px solid rgb(203 213 225);
+        padding: 0.7rem 0.9rem;
+        font-size: 0.95rem;
+        background: white;
+      }
+      .input:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.10);
+        border-color: rgb(148 163 184);
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        border-radius: 999px;
+        padding: 0.25rem 0.6rem;
+        font-weight: 700;
+        font-size: 0.75rem;
+      }
+      .badge-ok { background: rgb(240 253 244); color: rgb(20 83 45); border: 1px solid rgb(187 247 208); }
+      .badge-warn { background: rgb(255 251 235); color: rgb(146 64 14); border: 1px solid rgb(254 215 170); }
+      .badge-bad { background: rgb(254 242 242); color: rgb(153 27 27); border: 1px solid rgb(254 202 202); }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    </style>
   </head>
 
   <body class="min-h-screen bg-slate-50 text-slate-900">
     <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-4">
-        <div class="flex items-center gap-3 min-w-0">
-          <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center font-semibold shrink-0">
-            BP
-          </div>
-          <div class="min-w-0">
-            <div class="text-base font-semibold truncate">Bonbons de Pinchat</div>
-            <div class="text-xs text-slate-500 truncate">Commande de snacks avec livraison locale</div>
+      <div class="mx-auto max-w-6xl px-4 py-4 flex items-start justify-between gap-4">
+        <div class="min-w-0">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center font-extrabold">BP</div>
+            <div class="min-w-0">
+              <div class="text-base font-extrabold truncate">Bonbons de Pinchat</div>
+              <div class="text-xs text-slate-600 truncate">
+                Livraison réservée aux élèves de Pinchat et aux habitants des Acacias, Carouge et zones environnantes. Livraison gratuite pour Pinchat.
+              </div>
+            </div>
           </div>
         </div>
 
-        <a
-          href="#catalogue"
-          class="inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-900"
-        >
-          Voir le catalogue
-        </a>
+        <div class="text-xs text-slate-600 font-semibold whitespace-nowrap">
+          Site web cree par Aasim
+        </div>
       </div>
     </header>
 
     <main class="mx-auto max-w-6xl px-4 py-8">
-      <section class="mb-8">
-        <div class="rounded-2xl border border-amber-200 bg-amber-50 p-5">
-          <h1 class="text-xl sm:text-2xl font-semibold tracking-tight">Livraison locale pour Bonbons de Pinchat</h1>
-          <p class="mt-2 text-sm text-slate-700">
-            Livraison réservée aux élèves de Pinchat et aux habitants des Acacias, Carouge et zones environnantes.
-            Livraison gratuite pour Pinchat.
-          </p>
+      <div class="grid gap-6 lg:grid-cols-12">
+        <section class="lg:col-span-7">
+          <div class="card p-5">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Catalogue</h1>
+                <p class="mt-1 text-sm text-slate-600">
+                  Sélectionnez vos articles. Le stock affiché correspond aux unités restantes.
+                </p>
+              </div>
+              <span id="promoStatus" class="badge badge-warn hidden">Code promotionnel</span>
+            </div>
 
-          <div class="mt-4 grid gap-3 sm:grid-cols-3">
-            <div class="rounded-2xl bg-white border border-slate-200 p-4">
-              <div class="text-sm font-semibold">Zones desservies</div>
-              <div class="mt-1 text-sm text-slate-700">Pinchat, Acacias, Carouge, Vessy</div>
-            </div>
-            <div class="rounded-2xl bg-white border border-slate-200 p-4">
-              <div class="text-sm font-semibold">Paiement</div>
-              <div class="mt-1 text-sm text-slate-700">Paiement en espèces uniquement à la livraison</div>
-            </div>
-            <div class="rounded-2xl bg-white border border-slate-200 p-4">
-              <div class="text-sm font-semibold">Calcul automatique</div>
-              <div class="mt-1 text-sm text-slate-700">Sous total, frais de livraison et total final</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="grid gap-6 lg:grid-cols-12">
-        <section id="catalogue" class="lg:col-span-7">
-          <div class="flex items-end justify-between gap-3">
-            <div>
-              <h2 class="text-lg sm:text-xl font-semibold tracking-tight">Catalogue</h2>
-              <p class="mt-1 text-sm text-slate-600">Sélectionnez vos articles puis finalisez la commande.</p>
-            </div>
+            <div id="productsGrid" class="mt-5 grid gap-4 sm:grid-cols-2"></div>
           </div>
 
-          <div id="productsGrid" class="mt-5 grid gap-4 sm:grid-cols-2"></div>
+          <div class="card p-5 mt-6">
+            <h2 class="text-lg font-extrabold">Informations importantes</h2>
+            <ul class="mt-2 text-sm text-slate-700 list-disc pl-5 space-y-1">
+              <li>Paiement en espèces uniquement à la livraison.</li>
+              <li>Veuillez vérifier les ingrédients si vous avez des allergies.</li>
+              <li>La confirmation allergies est obligatoire avant l'envoi.</li>
+            </ul>
+          </div>
         </section>
 
         <aside class="lg:col-span-5">
-          <div id="checkoutCard" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <div class="card p-5">
             <div class="flex items-start justify-between gap-3">
               <div>
-                <h2 class="text-lg font-semibold tracking-tight">Panier et commande</h2>
-                <p class="mt-1 text-sm text-slate-600">Vérifiez votre panier puis complétez le formulaire.</p>
+                <h2 class="text-lg font-extrabold">Panier et commande</h2>
+                <p class="mt-1 text-sm text-slate-600">Calcule du sous total et du total final en temps réel.</p>
               </div>
-
-              <button
-                id="clearBtn"
-                type="button"
-                class="text-xs font-semibold text-slate-600 hover:text-slate-900"
-              >
-                Vider le panier
-              </button>
+              <button id="clearCartBtn" type="button" class="btn btn-ghost py-2 px-3 text-xs">Vider</button>
             </div>
 
             <div class="mt-4">
@@ -92,332 +132,321 @@
               </div>
             </div>
 
-            <div class="mt-5 rounded-2xl bg-slate-50 border border-slate-200 p-4">
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-slate-600">Sous total</span>
-                <span id="subtotal" class="font-semibold">0.00 CHF</span>
+            <div class="mt-5 grid gap-3">
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-slate-600">Sous total</span>
+                  <span id="subtotal" class="font-extrabold">0.00 CHF</span>
+                </div>
+
+                <div class="mt-2 flex items-center justify-between text-sm">
+                  <span class="text-slate-600">Remise</span>
+                  <span id="discount" class="font-extrabold">0.00 CHF</span>
+                </div>
+
+                <div class="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between">
+                  <span class="font-extrabold">Total final</span>
+                  <span id="total" class="font-extrabold">0.00 CHF</span>
+                </div>
               </div>
-              <div class="mt-2 flex items-center justify-between text-sm">
-                <span class="text-slate-600">Frais de livraison</span>
-                <span id="deliveryFee" class="font-semibold">0.00 CHF</span>
-              </div>
-              <div class="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between">
-                <span class="font-semibold">Total</span>
-                <span id="total" class="font-semibold">0.00 CHF</span>
+
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <label class="block text-sm font-extrabold" for="promoCode">Code promotionnel</label>
+                <div class="mt-2 flex gap-2">
+                  <input id="promoCode" class="input" type="text" placeholder="Exemple: RIZ-FEB10" />
+                  <button id="applyPromoBtn" type="button" class="btn btn-ghost whitespace-nowrap">Appliquer</button>
+                </div>
+                <div id="promoMsg" class="mt-2 text-xs text-slate-600"></div>
               </div>
             </div>
 
             <form id="orderForm" class="mt-5 space-y-4">
               <div>
-                <label for="name" class="block text-sm font-semibold">Nom et prénom</label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autocomplete="name"
-                  required
-                  class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/20 focus:border-slate-400"
-                  placeholder="Votre nom"
-                />
+                <label class="block text-sm font-extrabold" for="name">Nom et prénom</label>
+                <input id="name" name="name" class="input mt-2" type="text" autocomplete="name" required />
               </div>
 
               <div>
-                <label for="location" class="block text-sm font-semibold">Lieu de livraison</label>
-                <select
-                  id="location"
-                  name="location"
-                  required
-                  class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/20 focus:border-slate-400"
-                >
-                  <option value="" selected disabled>Sélectionnez un lieu</option>
+                <label class="block text-sm font-extrabold" for="contact">Coordonnées de contact</label>
+                <input id="contact" name="contact" class="input mt-2" type="text" autocomplete="tel" required placeholder="Téléphone ou autre moyen de contact" />
+              </div>
+
+              <div>
+                <label class="block text-sm font-extrabold" for="location">Lieu de livraison</label>
+                <select id="location" name="location" class="input mt-2" required>
+                  <option value="" disabled selected>Sélectionnez un lieu</option>
                   <option value="pinchat">Pinchat</option>
                   <option value="acacias">Acacias</option>
                   <option value="carouge">Carouge</option>
                   <option value="vessy">Vessy</option>
                 </select>
-                <p class="mt-2 text-xs text-slate-500">
-                  Pinchat est gratuit. Acacias et Carouge sont à 2 CHF. Vessy est à 3 CHF.
+                <p class="mt-2 text-xs text-slate-600">
+                  Livraison gratuite pour Pinchat. Les autres zones sont facturées selon les conditions habituelles.
                 </p>
-              </div>
-
-              <div>
-                <label for="contact" class="block text-sm font-semibold">Coordonnées de contact</label>
-                <input
-                  id="contact"
-                  name="contact"
-                  type="text"
-                  autocomplete="tel"
-                  required
-                  class="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-slate-900/20 focus:border-slate-400"
-                  placeholder="Téléphone ou autre moyen de contact"
-                />
               </div>
 
               <div class="rounded-2xl border border-slate-200 bg-white p-4">
                 <label class="flex items-start gap-3">
-                  <input
-                    id="allergy"
-                    name="allergy"
-                    type="checkbox"
-                    class="mt-1 h-4 w-4 rounded border-slate-300 text-slate-900 focus:ring-slate-900/20"
-                    required
-                  />
+                  <input id="allergyCheck" type="checkbox" class="mt-1 h-4 w-4 rounded border-slate-300" />
                   <span class="text-sm text-slate-800">
                     Je confirme avoir pris connaissance des ingrédients et des risques d'allergies.
                   </span>
                 </label>
               </div>
 
-              <div class="space-y-2">
-                <button
-                  id="submitBtn"
-                  type="submit"
-                  class="w-full inline-flex items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-900 disabled:opacity-40 disabled:cursor-not-allowed"
-                  disabled
-                >
-                  Commander
-                </button>
+              <div id="errorBox" class="hidden rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800"></div>
 
-                <p id="submitHint" class="text-xs text-slate-500">
-                  Le bouton Commander est activé après validation du panier, du lieu de livraison et de la confirmation allergies.
-                </p>
+              <button id="submitBtn" type="submit" class="btn btn-primary w-full" disabled>
+                Commander
+              </button>
 
-                <p id="errorMsg" class="hidden text-sm text-red-700"></p>
-              </div>
-
-              <input type="hidden" id="itemsField" name="items" />
-              <input type="hidden" id="pricingField" name="pricing" />
-              <input type="hidden" id="totalField" name="total" />
-              <input type="hidden" id="deliveryFeeField" name="delivery_fee" />
-              <input type="hidden" id="allergyField" name="allergy_confirmation" />
+              <p class="text-xs text-slate-600">
+                Le bouton Commander est activé après validation du panier et de la confirmation allergies.
+              </p>
             </form>
 
-            <div id="successState" class="hidden mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
-              <div class="text-base font-semibold text-emerald-900">Commande envoyée avec succès</div>
-              <p class="mt-2 text-sm text-emerald-900">
-                Merci. Votre commande a bien été transmise. Vous serez contacté rapidement afin de confirmer la livraison.
-              </p>
-              <p class="mt-2 text-sm text-emerald-900">
-                Rappel : paiement en espèces uniquement à la livraison.
-              </p>
+            <div id="receipt" class="hidden mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <div class="text-base font-extrabold text-emerald-900">Reçu Numérique</div>
+                  <div class="text-xs text-emerald-900">Merci. Veuillez conserver ce reçu.</div>
+                </div>
+                <div class="mono text-xs text-emerald-900" id="receiptId"></div>
+              </div>
+
+              <div class="mt-4 space-y-2 text-sm text-emerald-900">
+                <div><span class="font-extrabold">Nom:</span> <span id="rName"></span></div>
+                <div><span class="font-extrabold">Contact:</span> <span id="rContact"></span></div>
+                <div><span class="font-extrabold">Lieu:</span> <span id="rLocation"></span></div>
+                <div class="pt-2 border-t border-emerald-200">
+                  <div class="font-extrabold">Articles</div>
+                  <ul id="rItems" class="mt-1 list-disc pl-5"></ul>
+                </div>
+                <div class="pt-2 border-t border-emerald-200 flex items-center justify-between">
+                  <span class="font-extrabold">Total final</span>
+                  <span class="font-extrabold" id="rTotal"></span>
+                </div>
+                <div class="pt-2 border-t border-emerald-200">
+                  <div><span class="font-extrabold">Timestamp:</span> <span class="mono" id="rTime"></span></div>
+                  <div class="text-xs mt-1">
+                    Le timestamp permet de distinguer les anciennes captures d'écran et d'éviter la réutilisation.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-4 text-xs text-slate-500">
+              Intégrations: Formspree et webhook Discord configurables dans le script.
             </div>
           </div>
         </aside>
-      </section>
-
-      <section class="mt-8">
-        <div class="rounded-2xl border border-slate-200 bg-white p-5">
-          <div class="text-sm font-semibold">Informations de livraison</div>
-          <ul class="mt-2 text-sm text-slate-700 list-disc pl-5 space-y-1">
-            <li>Livraison réservée aux élèves de Pinchat et aux habitants des Acacias, Carouge et zones environnantes.</li>
-            <li>Pinchat : 0 CHF. Acacias et Carouge : 2 CHF. Vessy : 3 CHF.</li>
-            <li>Paiement en espèces uniquement à la livraison.</li>
-            <li>Veuillez vérifier les ingrédients de chaque produit si vous avez des allergies.</li>
-          </ul>
-        </div>
-      </section>
+      </div>
     </main>
 
-    <footer class="border-t border-slate-200 bg-white">
-      <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-slate-600">
-        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div>© <span id="year"></span> Bonbons de Pinchat</div>
-          <div class="text-xs text-slate-500">Site one page optimisé pour mobile et hébergé sur GitHub Pages</div>
-        </div>
-      </div>
-    </footer>
-
     <script>
-      const FORMSPREE_ENDPOINT = "https://formspree.io/f/mvzbgwyy"; // Remplacez par votre endpoint Formspree
+      const CONFIG = {
+        prices: {
+          "katjes_100": 2.90,
+          "katjes_200": 3.90
+        },
+        stock: {
+          "katjes_100": 5,
+          "katjes_200": 5
+        },
+        whaleKeys: {
+          "RIZ-FEB10": {
+            discount: 0.40,
+            expiresAt: 1739381400000
+          }
+        },
+        endpoints: {
+          formspree: "https://formspree.io/f/mvzbgwyy",
+          discordWebhook: "https://discord.com/api/webhooks/1470481174953726058/PcTDGCVEml8CEnt5tK4KwSIF4xafiXe7aFqBM4nO4Z-oVWAfTFZqohREasT62SuOnzjP"
+        }
+      };
 
       const CATALOGUE = [
         {
           id: "katjes_200",
-          nom: "Katjes 200g",
-          prix: 5,
-          image:
-            "https://static01.galaxus.com/productimages/5/9/8/5/7/8/7/1/2/4/4/9/8/3/9/3/6/2/6/28cc3980-3257-4af3-9dca-5643999ce563_cropped.jpg_720.avif",
+          name: "Katjes 200g",
+          image: "https://static01.galaxus.com/productimages/5/9/8/5/7/8/7/1/2/4/4/9/8/3/9/3/6/2/6/28cc3980-3257-4af3-9dca-5643999ce563_cropped.jpg_720.avif"
         },
         {
           id: "katjes_100",
-          nom: "Katjes 100g",
-          prix: 3,
-          image: "https://assets.brack.ch/images2/6/9/7/188883796/188883796_xxl.jpg",
-        },
+          name: "Katjes 100g",
+          image: "https://assets.brack.ch/images2/6/9/7/188883796/188883796_xxl.jpg"
+        }
       ];
 
       const DELIVERY_FEES = {
         pinchat: 0,
         acacias: 2,
         carouge: 2,
-        vessy: 3,
+        vessy: 3
       };
 
+      const $ = (id) => document.getElementById(id);
+
       const els = {
-        productsGrid: document.getElementById("productsGrid"),
-        clearBtn: document.getElementById("clearBtn"),
-        cartEmpty: document.getElementById("cartEmpty"),
-        cartList: document.getElementById("cartList"),
-        cartItems: document.getElementById("cartItems"),
-        subtotal: document.getElementById("subtotal"),
-        deliveryFee: document.getElementById("deliveryFee"),
-        total: document.getElementById("total"),
+        productsGrid: $("productsGrid"),
+        cartEmpty: $("cartEmpty"),
+        cartList: $("cartList"),
+        cartItems: $("cartItems"),
+        subtotal: $("subtotal"),
+        discount: $("discount"),
+        total: $("total"),
+        clearCartBtn: $("clearCartBtn"),
 
-        orderForm: document.getElementById("orderForm"),
-        name: document.getElementById("name"),
-        location: document.getElementById("location"),
-        contact: document.getElementById("contact"),
-        allergy: document.getElementById("allergy"),
-        submitBtn: document.getElementById("submitBtn"),
-        submitHint: document.getElementById("submitHint"),
-        errorMsg: document.getElementById("errorMsg"),
+        promoCode: $("promoCode"),
+        applyPromoBtn: $("applyPromoBtn"),
+        promoMsg: $("promoMsg"),
+        promoStatus: $("promoStatus"),
 
-        itemsField: document.getElementById("itemsField"),
-        pricingField: document.getElementById("pricingField"),
-        totalField: document.getElementById("totalField"),
-        deliveryFeeField: document.getElementById("deliveryFeeField"),
-        allergyField: document.getElementById("allergyField"),
+        form: $("orderForm"),
+        name: $("name"),
+        contact: $("contact"),
+        location: $("location"),
+        allergyCheck: $("allergyCheck"),
+        submitBtn: $("submitBtn"),
+        errorBox: $("errorBox"),
 
-        successState: document.getElementById("successState"),
-        year: document.getElementById("year"),
+        receipt: $("receipt"),
+        receiptId: $("receiptId"),
+        rName: $("rName"),
+        rContact: $("rContact"),
+        rLocation: $("rLocation"),
+        rItems: $("rItems"),
+        rTotal: $("rTotal"),
+        rTime: $("rTime")
       };
 
       const state = {
         cart: new Map(),
+        promo: { code: "", discount: 0, valid: false, expiresAt: 0 }
       };
 
-      const chf = (n) => `${Number(n).toFixed(2)} CHF`;
+      const money = (n) => `${Number(n).toFixed(2)} CHF`;
 
-      const getProduct = (id) => CATALOGUE.find((p) => p.id === id) || null;
+      function remainingStock(productId) {
+        const base = Number(CONFIG.stock[productId] ?? 0);
+        const inCart = Number(state.cart.get(productId) ?? 0);
+        return Math.max(0, base - inCart);
+      }
 
-      const calcSubtotal = () => {
+      function calcSubtotal() {
         let s = 0;
         for (const [id, qty] of state.cart.entries()) {
-          const p = getProduct(id);
-          if (!p) continue;
-          s += p.prix * qty;
+          const price = Number(CONFIG.prices[id] ?? 0);
+          s += price * qty;
         }
         return s;
-      };
+      }
 
-      const calcDeliveryFee = () => {
+      function calcDeliveryFee() {
         const loc = els.location.value;
-        if (!loc || !(loc in DELIVERY_FEES)) return 0;
-        return DELIVERY_FEES[loc];
-      };
+        if (!loc) return 0;
+        return Number(DELIVERY_FEES[loc] ?? 0);
+      }
 
-      const cartLines = () => {
-        const lines = [];
-        for (const [id, qty] of state.cart.entries()) {
-          const p = getProduct(id);
-          if (!p) continue;
-          const lineTotal = p.prix * qty;
-          lines.push(`${p.nom} x${qty} | ${p.prix} CHF | ${lineTotal} CHF`);
+      function calcDiscount(subtotal) {
+        const now = Date.now();
+        if (!state.promo.valid) return 0;
+        if (!state.promo.code) return 0;
+        if (!(state.promo.expiresAt > now)) return 0;
+        return Math.min(Number(state.promo.discount || 0), subtotal);
+      }
+
+      function canSubmit() {
+        const hasCart = state.cart.size > 0;
+        const hasAllergy = els.allergyCheck.checked;
+        const nameOk = els.name.value.trim().length > 0;
+        const contactOk = els.contact.value.trim().length > 0;
+        const locationOk = els.location.value && els.location.value.length > 0;
+        return hasCart && hasAllergy && nameOk && contactOk && locationOk;
+      }
+
+      function setError(msg) {
+        if (!msg) {
+          els.errorBox.classList.add("hidden");
+          els.errorBox.textContent = "";
+          return;
         }
-        return lines;
-      };
+        els.errorBox.textContent = msg;
+        els.errorBox.classList.remove("hidden");
+      }
 
-      const renderProducts = () => {
-        els.productsGrid.innerHTML = "";
-        for (const p of CATALOGUE) {
-          const card = document.createElement("article");
-          card.className = "rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm";
+      function updateTotalsUI() {
+        const subtotal = calcSubtotal();
+        const discount = calcDiscount(subtotal);
+        const fee = calcDeliveryFee();
+        const total = Math.max(0, subtotal - discount) + fee;
 
-          card.innerHTML = `
-            <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
-              <img src="${p.image}" alt="${p.nom}" class="h-full w-full object-cover" loading="lazy">
-            </div>
-            <div class="p-4">
-              <div class="flex items-start justify-between gap-3">
-                <h3 class="text-sm font-semibold">${p.nom}</h3>
-                <div class="text-sm font-semibold">${p.prix} CHF</div>
-              </div>
-              <button
-                type="button"
-                class="mt-4 w-full inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold bg-slate-900 text-white hover:bg-slate-800 active:bg-slate-900"
-                data-add="${p.id}"
-              >
-                Ajouter au panier
-              </button>
-            </div>
-          `;
-          els.productsGrid.appendChild(card);
-        }
+        els.subtotal.textContent = money(subtotal);
+        els.discount.textContent = money(discount);
+        els.total.textContent = money(total);
 
-        els.productsGrid.querySelectorAll("[data-add]").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const id = btn.getAttribute("data-add");
-            state.cart.set(id, (state.cart.get(id) || 0) + 1);
-            renderCart();
-            updateTotals();
-            updateSubmitState();
-          });
-        });
-      };
+        els.submitBtn.disabled = !canSubmit();
+      }
 
-      const renderCart = () => {
+      function renderCart() {
         els.cartItems.innerHTML = "";
 
         if (state.cart.size === 0) {
           els.cartEmpty.classList.remove("hidden");
           els.cartList.classList.add("hidden");
-          return;
+        } else {
+          els.cartEmpty.classList.add("hidden");
+          els.cartList.classList.remove("hidden");
         }
 
-        els.cartEmpty.classList.add("hidden");
-        els.cartList.classList.remove("hidden");
-
         for (const [id, qty] of state.cart.entries()) {
-          const p = getProduct(id);
-          if (!p) continue;
+          const p = CATALOGUE.find(x => x.id === id);
+          const name = p ? p.name : id;
+          const unit = Number(CONFIG.prices[id] ?? 0);
+          const lineTotal = unit * qty;
 
           const li = document.createElement("li");
           li.className = "flex items-start justify-between gap-3";
 
           const left = document.createElement("div");
           left.className = "min-w-0";
-
-          const title = document.createElement("div");
-          title.className = "text-sm font-semibold truncate";
-          title.textContent = p.nom;
-
-          const meta = document.createElement("div");
-          meta.className = "mt-0.5 text-xs text-slate-500";
-          meta.textContent = `${p.prix} CHF x ${qty}`;
-
-          left.appendChild(title);
-          left.appendChild(meta);
+          left.innerHTML = `
+            <div class="text-sm font-extrabold truncate">${name}</div>
+            <div class="text-xs text-slate-600 mt-0.5">${money(unit)} x ${qty} | ${money(lineTotal)}</div>
+          `;
 
           const right = document.createElement("div");
           right.className = "flex items-center gap-2";
 
           const minus = document.createElement("button");
           minus.type = "button";
-          minus.className = "h-9 w-9 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-900";
+          minus.className = "btn btn-ghost py-2 px-3";
           minus.textContent = "-";
           minus.addEventListener("click", () => {
-            const cur = state.cart.get(id) || 0;
+            const cur = Number(state.cart.get(id) ?? 0);
             const next = cur - 1;
             if (next <= 0) state.cart.delete(id);
             else state.cart.set(id, next);
             renderCart();
-            updateTotals();
-            updateSubmitState();
+            renderProducts();
+            updateTotalsUI();
           });
 
           const qtyBadge = document.createElement("div");
-          qtyBadge.className = "min-w-[2.25rem] text-center text-sm font-semibold rounded-xl bg-slate-100 px-2 py-2";
+          qtyBadge.className = "px-3 py-2 rounded-xl bg-slate-100 font-extrabold text-sm min-w-[2.5rem] text-center";
           qtyBadge.textContent = String(qty);
 
           const plus = document.createElement("button");
           plus.type = "button";
-          plus.className = "h-9 w-9 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-900";
+          plus.className = "btn btn-ghost py-2 px-3";
           plus.textContent = "+";
+          plus.disabled = remainingStock(id) <= 0;
           plus.addEventListener("click", () => {
-            state.cart.set(id, (state.cart.get(id) || 0) + 1);
+            if (remainingStock(id) <= 0) return;
+            state.cart.set(id, Number(state.cart.get(id) ?? 0) + 1);
             renderCart();
-            updateTotals();
-            updateSubmitState();
+            renderProducts();
+            updateTotalsUI();
           });
 
           right.appendChild(minus);
@@ -426,155 +455,323 @@
 
           li.appendChild(left);
           li.appendChild(right);
-
           els.cartItems.appendChild(li);
         }
-      };
 
-      const updateTotals = () => {
-        const subtotal = calcSubtotal();
-        const fee = calcDeliveryFee();
-        const total = subtotal + fee;
+        updateTotalsUI();
+      }
 
-        els.subtotal.textContent = chf(subtotal);
-        els.deliveryFee.textContent = chf(fee);
-        els.total.textContent = chf(total);
+      function renderProducts() {
+        els.productsGrid.innerHTML = "";
 
-        els.itemsField.value = cartLines().join("\n");
-        els.pricingField.value = `Sous total: ${subtotal.toFixed(2)} CHF | Frais livraison: ${fee.toFixed(2)} CHF`;
-        els.totalField.value = `${total.toFixed(2)} CHF`;
-        els.deliveryFeeField.value = `${fee.toFixed(2)} CHF`;
-        els.allergyField.value = els.allergy.checked ? "Oui" : "Non";
-      };
+        for (const p of CATALOGUE) {
+          const price = Number(CONFIG.prices[p.id] ?? 0);
+          const remain = remainingStock(p.id);
 
-      const updateSubmitState = () => {
-        const hasCart = state.cart.size > 0;
-        const hasLocation = !!els.location.value;
-        const hasAllergy = els.allergy.checked;
-        const basicFieldsFilled = els.name.value.trim().length > 0 && els.contact.value.trim().length > 0;
+          const card = document.createElement("article");
+          card.className = "card overflow-hidden shadow-sm";
 
-        const ok = hasCart && hasLocation && hasAllergy && basicFieldsFilled;
-        els.submitBtn.disabled = !ok;
-      };
+          const titleText = `${p.name} (${remain} restants)`;
 
-      const setError = (msg) => {
-        if (!msg) {
-          els.errorMsg.classList.add("hidden");
-          els.errorMsg.textContent = "";
-          return;
+          const stockBadgeClass = remain === 0 ? "badge-bad" : (remain <= 2 ? "badge-warn" : "badge-ok");
+          const stockBadgeText = remain === 0 ? "Épuisé" : (remain <= 2 ? "Stock faible" : "En stock");
+
+          card.innerHTML = `
+            <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
+              <img src="${p.image}" alt="${p.name}" class="h-full w-full object-cover" loading="lazy" />
+            </div>
+            <div class="p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <h3 class="text-sm font-extrabold truncate">${titleText}</h3>
+                  <div class="mt-1 text-sm font-extrabold">${money(price)}</div>
+                </div>
+                <span class="badge ${stockBadgeClass}">${stockBadgeText}</span>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-primary w-full mt-4"
+                data-add="${p.id}"
+                ${remain === 0 ? "disabled" : ""}
+              >
+                ${remain === 0 ? "Épuisé" : "Ajouter au panier"}
+              </button>
+            </div>
+          `;
+
+          els.productsGrid.appendChild(card);
         }
-        els.errorMsg.textContent = msg;
-        els.errorMsg.classList.remove("hidden");
-      };
 
-      const lockForm = (locked) => {
-        const controls = els.orderForm.querySelectorAll("input, select, button, textarea");
-        controls.forEach((c) => (c.disabled = locked));
-      };
+        els.productsGrid.querySelectorAll("[data-add]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-add");
+            if (!id) return;
 
-      const showSuccess = () => {
-        els.orderForm.classList.add("hidden");
-        els.successState.classList.remove("hidden");
-      };
+            if (remainingStock(id) <= 0) {
+              renderProducts();
+              return;
+            }
 
-      const postToFormspree = async (payload) => {
-        const res = await fetch(FORMSPREE_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(payload),
+            state.cart.set(id, Number(state.cart.get(id) ?? 0) + 1);
+            renderCart();
+            renderProducts();
+            updateTotalsUI();
+          });
+        });
+      }
+
+      function validatePromo(codeRaw) {
+        const code = String(codeRaw || "").trim().toUpperCase();
+        if (!code) return { ok: false, msg: "Veuillez saisir un code." };
+
+        const entry = CONFIG.whaleKeys[code];
+        if (!entry) return { ok: false, msg: "Code non reconnu." };
+
+        const now = Date.now();
+        const exp = Number(entry.expiresAt ?? 0);
+        if (!(exp > now)) return { ok: false, msg: "Code expiré." };
+
+        const discount = Number(entry.discount ?? 0);
+        if (!(discount > 0)) return { ok: false, msg: "Code invalide." };
+
+        return { ok: true, msg: `Code accepté. Remise de ${money(discount)} appliquée.`, discount, expiresAt: exp, code };
+      }
+
+      function setPromoUI(valid, msg) {
+        els.promoMsg.textContent = msg || "";
+        if (valid) {
+          els.promoStatus.textContent = "Code promotionnel actif";
+          els.promoStatus.classList.remove("hidden");
+          els.promoStatus.classList.remove("badge-warn");
+          els.promoStatus.classList.add("badge-ok");
+        } else {
+          els.promoStatus.textContent = "Code promotionnel";
+          els.promoStatus.classList.remove("hidden");
+          els.promoStatus.classList.remove("badge-ok");
+          els.promoStatus.classList.add("badge-warn");
+        }
+        if (!msg) {
+          els.promoStatus.classList.add("hidden");
+        }
+      }
+
+      function buildReceiptData() {
+        const subtotal = calcSubtotal();
+        const discount = calcDiscount(subtotal);
+        const fee = calcDeliveryFee();
+        const total = Math.max(0, subtotal - discount) + fee;
+
+        const items = Array.from(state.cart.entries()).map(([id, qty]) => {
+          const p = CATALOGUE.find(x => x.id === id);
+          const unit = Number(CONFIG.prices[id] ?? 0);
+          return {
+            id,
+            nom: p ? p.name : id,
+            quantite: qty,
+            prix_unitaire_chf: Number(unit.toFixed(2)),
+            total_ligne_chf: Number((unit * qty).toFixed(2))
+          };
         });
 
+        const orderTime = new Date();
+        const timestamp = orderTime.toISOString();
+        const receiptId = `BP-${orderTime.getUTCFullYear()}${String(orderTime.getUTCMonth() + 1).padStart(2, "0")}${String(orderTime.getUTCDate()).padStart(2, "0")}-${Math.random().toString(16).slice(2, 8).toUpperCase()}`;
+
+        return {
+          receiptId,
+          timestamp,
+          client: {
+            nom: els.name.value.trim(),
+            contact: els.contact.value.trim(),
+            lieu: els.location.value
+          },
+          promo: state.promo.valid ? {
+            code: state.promo.code,
+            discount_chf: Number((state.promo.discount || 0).toFixed(2)),
+            expiresAt: state.promo.expiresAt
+          } : null,
+          pricing: {
+            sous_total_chf: Number(subtotal.toFixed(2)),
+            remise_chf: Number(discount.toFixed(2)),
+            frais_livraison_chf: Number(fee.toFixed(2)),
+            total_final_chf: Number(total.toFixed(2))
+          },
+          allergy_confirmation: els.allergyCheck.checked === true,
+          items
+        };
+      }
+
+      async function postJson(url, payload) {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(payload)
+        });
         if (!res.ok) {
           let detail = "";
           try {
             const data = await res.json();
             if (data && data.errors && data.errors.length) detail = data.errors[0].message || "";
           } catch (_) {}
-          throw new Error(detail || "La soumission a échoué. Veuillez réessayer.");
+          throw new Error(detail || "Erreur lors de l'envoi.");
         }
         return res;
-      };
+      }
 
-      els.clearBtn.addEventListener("click", () => {
+      async function sendToDiscord(webhookUrl, receiptData) {
+        if (!webhookUrl || webhookUrl.includes("PcTDGCVEml8CEnt5tK4KwSIF4xafiXe7aFqBM4nO4Z-oVWAfTFZqohREasT62SuOnzjP")) return;
+
+        const lines = [];
+        lines.push(`Recu Numerique ${receiptData.receiptId}`);
+        lines.push(`Timestamp ${receiptData.timestamp}`);
+        lines.push(`Client ${receiptData.client.nom}`);
+        lines.push(`Contact ${receiptData.client.contact}`);
+        lines.push(`Lieu ${receiptData.client.lieu}`);
+        lines.push(`Allergies confirme ${receiptData.allergy_confirmation ? "Oui" : "Non"}`);
+        lines.push("Articles");
+        receiptData.items.forEach(it => {
+          lines.push(`- ${it.nom} x${it.quantite} | ${it.prix_unitaire_chf.toFixed(2)} CHF | ${it.total_ligne_chf.toFixed(2)} CHF`);
+        });
+        if (receiptData.promo) {
+          lines.push(`Code promo ${receiptData.promo.code} | Remise ${receiptData.pricing.remise_chf.toFixed(2)} CHF`);
+        }
+        lines.push(`Sous total ${receiptData.pricing.sous_total_chf.toFixed(2)} CHF`);
+        lines.push(`Frais livraison ${receiptData.pricing.frais_livraison_chf.toFixed(2)} CHF`);
+        lines.push(`Total final ${receiptData.pricing.total_final_chf.toFixed(2)} CHF`);
+
+        const payload = {
+          content: lines.join("\n")
+        };
+
+        const res = await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          throw new Error("Erreur lors de l'envoi vers Discord.");
+        }
+      }
+
+      function showReceipt(receiptData) {
+        els.form.classList.add("hidden");
+        els.receipt.classList.remove("hidden");
+
+        els.receiptId.textContent = receiptData.receiptId;
+        els.rName.textContent = receiptData.client.nom;
+        els.rContact.textContent = receiptData.client.contact;
+        els.rLocation.textContent = receiptData.client.lieu;
+
+        els.rItems.innerHTML = "";
+        receiptData.items.forEach(it => {
+          const li = document.createElement("li");
+          li.textContent = `${it.nom} x${it.quantite} | ${it.total_ligne_chf.toFixed(2)} CHF`;
+          els.rItems.appendChild(li);
+        });
+
+        els.rTotal.textContent = `${receiptData.pricing.total_final_chf.toFixed(2)} CHF`;
+        els.rTime.textContent = receiptData.timestamp;
+      }
+
+      function resetPromo() {
+        state.promo = { code: "", discount: 0, valid: false, expiresAt: 0 };
+        els.promoCode.value = "";
+        setPromoUI(false, "");
+        updateTotalsUI();
+      }
+
+      els.applyPromoBtn.addEventListener("click", () => {
+        setError("");
+        const check = validatePromo(els.promoCode.value);
+        if (!check.ok) {
+          state.promo = { code: "", discount: 0, valid: false, expiresAt: 0 };
+          setPromoUI(false, check.msg);
+          updateTotalsUI();
+          return;
+        }
+        state.promo = { code: check.code, discount: check.discount, valid: true, expiresAt: check.expiresAt };
+        setPromoUI(true, check.msg);
+        updateTotalsUI();
+      });
+
+      els.clearCartBtn.addEventListener("click", () => {
         state.cart.clear();
         renderCart();
-        updateTotals();
-        updateSubmitState();
+        renderProducts();
+        resetPromo();
         setError("");
+        updateTotalsUI();
       });
 
-      ["input", "change"].forEach((evt) => {
-        els.name.addEventListener(evt, () => updateSubmitState());
-        els.contact.addEventListener(evt, () => updateSubmitState());
-        els.location.addEventListener(evt, () => {
-          updateTotals();
-          updateSubmitState();
-        });
-        els.allergy.addEventListener(evt, () => {
-          updateTotals();
-          updateSubmitState();
-        });
+      ["input", "change"].forEach(evt => {
+        els.name.addEventListener(evt, () => { setError(""); els.submitBtn.disabled = !canSubmit(); });
+        els.contact.addEventListener(evt, () => { setError(""); els.submitBtn.disabled = !canSubmit(); });
+        els.location.addEventListener(evt, () => { setError(""); updateTotalsUI(); });
+        els.allergyCheck.addEventListener(evt, () => { setError(""); els.submitBtn.disabled = !canSubmit(); });
       });
 
-      els.orderForm.addEventListener("submit", async (e) => {
+      els.form.addEventListener("submit", async (e) => {
         e.preventDefault();
         setError("");
 
         if (state.cart.size === 0) {
           setError("Veuillez ajouter au moins un article au panier.");
-          updateSubmitState();
           return;
         }
-
         if (!els.location.value) {
           setError("Veuillez sélectionner un lieu de livraison.");
-          updateSubmitState();
           return;
         }
-
-        if (!els.allergy.checked) {
+        if (!els.allergyCheck.checked) {
           setError("Veuillez confirmer la prise de connaissance des ingrédients et des risques d'allergies.");
-          updateSubmitState();
           return;
         }
 
-        const subtotal = calcSubtotal();
-        const fee = calcDeliveryFee();
-        const total = subtotal + fee;
+        for (const [id] of state.cart.entries()) {
+          const remain = remainingStock(id);
+          if (remain < 0) {
+            setError("Le stock a changé. Veuillez vérifier votre panier.");
+            return;
+          }
+        }
 
-        const payload = {
-          entreprise: "Bonbons de Pinchat",
-          nom: els.name.value.trim(),
-          contact: els.contact.value.trim(),
-          lieu_de_livraison: els.location.value,
-          confirmation_allergies: true,
-          articles: Array.from(state.cart.entries()).map(([id, qty]) => {
-            const p = getProduct(id);
-            return { id, nom: p ? p.nom : id, quantite: qty, prix_unitaire_chf: p ? p.prix : 0 };
-          }),
-          sous_total_chf: Number(subtotal.toFixed(2)),
-          frais_livraison_chf: Number(fee.toFixed(2)),
-          total_chf: Number(total.toFixed(2)),
-        };
+        const receiptData = buildReceiptData();
 
-        lockForm(true);
+        const formspreeUrl = CONFIG.endpoints.formspree;
+        const discordUrl = CONFIG.endpoints.discordWebhook;
+
+        els.submitBtn.disabled = true;
+        els.submitBtn.textContent = "Envoi en cours";
 
         try {
-          await postToFormspree(payload);
-          showSuccess();
+          if (formspreeUrl && !formspreeUrl.includes("XXXXXXXX")) {
+            await postJson(formspreeUrl, receiptData);
+          } else {
+            await new Promise(r => setTimeout(r, 350));
+          }
+
+          try {
+            await sendToDiscord(discordUrl, receiptData);
+          } catch (_) {
+            /* Discord optionnel */
+          }
+
+          showReceipt(receiptData);
         } catch (err) {
           setError(err && err.message ? err.message : "Erreur lors de l'envoi. Veuillez réessayer.");
-          lockForm(false);
-          updateSubmitState();
+          els.submitBtn.disabled = !canSubmit();
+          els.submitBtn.textContent = "Commander";
+          return;
         }
-      });
 
-      els.year.textContent = String(new Date().getFullYear());
+        els.submitBtn.textContent = "Commander";
+      });
 
       renderProducts();
       renderCart();
-      updateTotals();
-      updateSubmitState();
+      updateTotalsUI();
     </script>
   </body>
 </html>
