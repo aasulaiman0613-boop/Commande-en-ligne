@@ -5,84 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bonbons de Pinchat | Boutique</title>
 
-    <!-- Tailwind CSS via CDN (optionnel mais recommandé) -->
     <script src="https://cdn.tailwindcss.com"></script>
-
     <style>
-      /* Ajustements légers, mobile-first */
       html, body { height: 100%; }
-      .card {
-        border-radius: 1rem;
-        border: 1px solid rgb(226 232 240);
-        background: white;
-      }
-      .btn {
-        border-radius: 0.9rem;
-        padding: 0.75rem 1rem;
-        font-weight: 700;
-        font-size: 0.95rem;
-      }
-      .btn-primary {
-        background: rgb(15 23 42);
-        color: white;
-      }
-      .btn-primary:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
-      .btn-ghost {
-        background: white;
-        border: 1px solid rgb(203 213 225);
-        color: rgb(15 23 42);
-      }
-      .btn-ghost:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
-      .input {
-        width: 100%;
-        border-radius: 0.9rem;
-        border: 1px solid rgb(203 213 225);
-        padding: 0.7rem 0.9rem;
-        font-size: 0.95rem;
-        background: white;
-      }
-      .input:focus {
-        outline: none;
-        box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.10);
-        border-color: rgb(148 163 184);
-      }
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        border-radius: 999px;
-        padding: 0.25rem 0.6rem;
-        font-weight: 700;
-        font-size: 0.75rem;
-      }
+      .btn { border-radius: 0.8rem; font-weight: 700; font-size: 0.95rem; }
+      .btn-primary { background: rgb(15 23 42); color: white; }
+      .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+      .btn-ghost { background: white; border: 1px solid rgb(203 213 225); color: rgb(15 23 42); }
+      .btn-ghost:disabled { opacity: 0.45; cursor: not-allowed; }
+      .input { width: 100%; border-radius: 0.8rem; border: 1px solid rgb(203 213 225); padding: 0.7rem 0.9rem; }
+      .badge { display: inline-flex; align-items: center; border-radius: 999px; padding: 0.25rem 0.6rem; font-size: 0.75rem; font-weight: 700; }
       .badge-ok { background: rgb(240 253 244); color: rgb(20 83 45); border: 1px solid rgb(187 247 208); }
       .badge-warn { background: rgb(255 251 235); color: rgb(146 64 14); border: 1px solid rgb(254 215 170); }
       .badge-bad { background: rgb(254 242 242); color: rgb(153 27 27); border: 1px solid rgb(254 202 202); }
-      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace; }
     </style>
   </head>
 
   <body class="min-h-screen bg-slate-50 text-slate-900">
-    <header class="sticky top-0 z-30 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div class="mx-auto max-w-6xl px-4 py-4 flex items-start justify-between gap-4">
-        <div class="min-w-0">
+    <header class="sticky top-0 border-b border-slate-200 bg-white/90 backdrop-blur z-30">
+      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+        <div>
           <div class="flex items-center gap-3">
             <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center font-extrabold">BP</div>
-            <div class="min-w-0">
-              <div class="text-base font-extrabold truncate">Bonbons de Pinchat</div>
-              <div class="text-xs text-slate-600 truncate">
-                Livraison réservée aux élèves de Pinchat et aux habitants des Acacias, Carouge et zones environnantes. Livraison gratuite pour Pinchat.
+            <div>
+              <div class="text-base font-extrabold">Bonbons de Pinchat</div>
+              <div class="text-xs text-slate-600">
+                Livraison pour les élèves de Pinchat et les habitants des Acacias, Carouge et zones environnantes. Pinchat est en dehors du Preau.
               </div>
             </div>
           </div>
         </div>
 
-        <div class="text-xs text-slate-600 font-semibold whitespace-nowrap">
+        <div class="text-xs text-slate-600 font-semibold">
           Site web cree par Aasim
         </div>
       </div>
@@ -91,152 +46,118 @@
     <main class="mx-auto max-w-6xl px-4 py-8">
       <div class="grid gap-6 lg:grid-cols-12">
         <section class="lg:col-span-7">
-          <div class="card p-5">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight">Catalogue</h1>
-                <p class="mt-1 text-sm text-slate-600">
-                  Sélectionnez vos articles. Le stock affiché correspond aux unités restantes.
-                </p>
-              </div>
-              <span id="promoStatus" class="badge badge-warn hidden">Code promotionnel</span>
-            </div>
-
+          <div class="rounded-2xl border border-slate-200 bg-white p-5">
+            <h2 class="text-xl font-extrabold">Catalogue</h2>
+            <p class="mt-1 text-sm text-slate-600">Sélectionnez vos articles et ajoutez-les au panier.</p>
             <div id="productsGrid" class="mt-5 grid gap-4 sm:grid-cols-2"></div>
           </div>
 
-          <div class="card p-5 mt-6">
-            <h2 class="text-lg font-extrabold">Informations importantes</h2>
+          <div class="rounded-2xl border border-slate-200 bg-white p-5 mt-6">
+            <h3 class="font-extrabold text-lg">Informations de livraison</h3>
             <ul class="mt-2 text-sm text-slate-700 list-disc pl-5 space-y-1">
               <li>Paiement en espèces uniquement à la livraison.</li>
               <li>Veuillez vérifier les ingrédients si vous avez des allergies.</li>
-              <li>La confirmation allergies est obligatoire avant l'envoi.</li>
+              <li>La confirmation allergies est obligatoire avant l’envoi de la commande.</li>
             </ul>
           </div>
         </section>
 
         <aside class="lg:col-span-5">
-          <div class="card p-5">
-            <div class="flex items-start justify-between gap-3">
-              <div>
-                <h2 class="text-lg font-extrabold">Panier et commande</h2>
-                <p class="mt-1 text-sm text-slate-600">Calcule du sous total et du total final en temps réel.</p>
-              </div>
-              <button id="clearCartBtn" type="button" class="btn btn-ghost py-2 px-3 text-xs">Vider</button>
-            </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-5">
+            <h2 class="text-lg font-extrabold">Panier et commande</h2>
+
+            <button id="clearCart" type="button" class="btn btn-ghost text-xs py-2 px-3 mt-2">Vider le panier</button>
 
             <div class="mt-4">
               <div id="cartEmpty" class="text-sm text-slate-600">Votre panier est vide.</div>
-              <div id="cartList" class="hidden">
-                <ul id="cartItems" class="space-y-3"></ul>
-              </div>
+              <ul id="cartItems" class="mt-4 space-y-3 hidden"></ul>
             </div>
 
             <div class="mt-5 grid gap-3">
-              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                <div class="flex items-center justify-between text-sm">
+              <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                <div class="flex justify-between text-sm">
                   <span class="text-slate-600">Sous total</span>
                   <span id="subtotal" class="font-extrabold">0.00 CHF</span>
                 </div>
-
-                <div class="mt-2 flex items-center justify-between text-sm">
+                <div class="mt-2 flex justify-between text-sm">
                   <span class="text-slate-600">Remise</span>
                   <span id="discount" class="font-extrabold">0.00 CHF</span>
                 </div>
-
-                <div class="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between">
-                  <span class="font-extrabold">Total final</span>
+                <div class="pt-2 border-t border-slate-200 flex justify-between font-extrabold">
+                  <span>Total final</span>
                   <span id="total" class="font-extrabold">0.00 CHF</span>
                 </div>
               </div>
 
-              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <div class="rounded-2xl bg-white border border-slate-200 p-4">
                 <label class="block text-sm font-extrabold" for="promoCode">Code promotionnel</label>
                 <div class="mt-2 flex gap-2">
-                  <input id="promoCode" class="input" type="text" placeholder="Exemple: CODEPROMO-1234" />
-                  <button id="applyPromoBtn" type="button" class="btn btn-ghost whitespace-nowrap">Appliquer</button>
+                  <input id="promoCode" type="text" class="input" placeholder="Exemple: RIZ-FEB10" />
+                  <button id="applyPromoBtn" type="button" class="btn btn-ghost">Appliquer</button>
                 </div>
-                <div id="promoMsg" class="mt-2 text-xs text-slate-600"></div>
+                <p id="promoMsg" class="mt-1 text-xs text-slate-600"></p>
               </div>
             </div>
 
             <form id="orderForm" class="mt-5 space-y-4">
               <div>
-                <label class="block text-sm font-extrabold" for="name">Nom et prénom</label>
-                <input id="name" name="name" class="input mt-2" type="text" autocomplete="name" required />
+                <label for="name" class="block text-sm font-extrabold">Nom et prénom</label>
+                <input type="text" id="name" class="input mt-2" required />
               </div>
 
               <div>
-                <label class="block text-sm font-extrabold" for="contact">Coordonnées de contact</label>
-                <input id="contact" name="contact" class="input mt-2" type="text" autocomplete="tel" required placeholder="Téléphone ou autre moyen de contact" />
+                <label for="contact" class="block text-sm font-extrabold">Coordonnees de contact</label>
+                <input type="text" id="contact" class="input mt-2" required />
               </div>
 
               <div>
-                <label class="block text-sm font-extrabold" for="location">Lieu de livraison</label>
-                <select id="location" name="location" class="input mt-2" required>
-                  <option value="" disabled selected>Sélectionnez un lieu</option>
+                <label for="location" class="block text-sm font-extrabold">Lieu de livraison</label>
+                <select id="location" class="input mt-2" required>
+                  <option value="" disabled selected>Selectionnez un lieu</option>
                   <option value="pinchat">Pinchat</option>
                   <option value="acacias">Acacias</option>
                   <option value="carouge">Carouge</option>
                   <option value="vessy">Vessy</option>
                 </select>
-                <p class="mt-2 text-xs text-slate-600">
-                  Livraison gratuite pour Pinchat. Les autres zones sont facturées selon les conditions habituelles.
-                </p>
               </div>
 
-              <div class="rounded-2xl border border-slate-200 bg-white p-4">
-                <label class="flex items-start gap-3">
-                  <input id="allergyCheck" type="checkbox" class="mt-1 h-4 w-4 rounded border-slate-300" />
-                  <span class="text-sm text-slate-800">
-                    Je confirme avoir pris connaissance des ingrédients et des risques d'allergies.
-                  </span>
-                </label>
-              </div>
+              <label class="flex items-start gap-3">
+                <input type="checkbox" id="allergyCheck" class="mt-1 h-4 w-4 rounded border-slate-300" />
+                <span class="text-sm text-slate-800">Je confirme avoir pris connaissance des ingredients et des risques d’allergies.</span>
+              </label>
 
-              <div id="errorBox" class="hidden rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800"></div>
+              <div id="errorBox" class="hidden text-sm text-red-800 bg-red-50 border border-red-200 rounded-xl p-3"></div>
 
-              <button id="submitBtn" type="submit" class="btn btn-primary w-full" disabled>
+              <button id="submitBtn" type="submit" class="btn btn-primary w-full py-3" disabled>
                 Commander
               </button>
-
-              <p class="text-xs text-slate-600">
-                Le bouton Commander est activé après validation du panier et de la confirmation allergies.
-              </p>
             </form>
 
             <div id="receipt" class="hidden mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
-              <div class="flex items-start justify-between gap-3">
+              <div class="flex justify-between items-start">
                 <div>
-                  <div class="text-base font-extrabold text-emerald-900">Reçu Numérique</div>
-                  <div class="text-xs text-emerald-900">Merci. Veuillez conserver ce reçu.</div>
+                  <div class="font-extrabold text-emerald-900">Recu Numerique</div>
+                  <div class="text-xs text-emerald-900">Merci. Veuillez conserver ce recu.</div>
                 </div>
                 <div class="mono text-xs text-emerald-900" id="receiptId"></div>
               </div>
 
-              <div class="mt-4 space-y-2 text-sm text-emerald-900">
+              <div class="mt-3 text-sm text-emerald-900 space-y-2">
                 <div><span class="font-extrabold">Nom:</span> <span id="rName"></span></div>
                 <div><span class="font-extrabold">Contact:</span> <span id="rContact"></span></div>
                 <div><span class="font-extrabold">Lieu:</span> <span id="rLocation"></span></div>
                 <div class="pt-2 border-t border-emerald-200">
                   <div class="font-extrabold">Articles</div>
-                  <ul id="rItems" class="mt-1 list-disc pl-5"></ul>
+                  <ul id="rItems" class="list-disc pl-5"></ul>
                 </div>
-                <div class="pt-2 border-t border-emerald-200 flex items-center justify-between">
-                  <span class="font-extrabold">Total final</span>
-                  <span class="font-extrabold" id="rTotal"></span>
+                <div class="pt-2 border-t border-emerald-200 flex justify-between font-extrabold">
+                  <span>Total final</span>
+                  <span id="rTotal"></span>
                 </div>
                 <div class="pt-2 border-t border-emerald-200">
-                  <div><span class="font-extrabold">Timestamp:</span> <span class="mono" id="rTime"></span></div>
-                  <div class="text-xs mt-1">
-                    Le timestamp permet de distinguer les anciennes captures d'écran et d'éviter la réutilisation.
-                  </div>
+                  <div><span class="font-extrabold">Timestamp:</span> <span id="rTime"></span></div>
                 </div>
               </div>
-            </div>
-
-            <div class="mt-4 text-xs text-slate-500">
-              Intégrations: Formspree et webhook Discord configurables dans le script.
             </div>
           </div>
         </aside>
@@ -246,18 +167,21 @@
     <script>
       const CONFIG = {
         prices: {
-          "katjes_100": 2.90,
-          "katjes_200": 3.90
+          katjes_200: 3.90,
+          katjes_100: 2.90,
+          ice_tea_peche: 2.00,
+          dragibus: 3.50,
+          tetes_brulees: 5.50
         },
         stock: {
-          "katjes_100": 5,
-          "katjes_200": 5
+          katjes_200: 5,
+          katjes_100: 5,
+          ice_tea_peche: 8,
+          dragibus: 6,
+          tetes_brulees: 4
         },
         whaleKeys: {
-          "RIZ-FEB10": {
-            discount: 0.40,
-            expiresAt: 1739381400000
-          }
+          "RIZ-FEB10": { discount: 0.40, expiresAt: 1760000000000 }
         },
         endpoints: {
           formspree: "https://formspree.io/f/mvzbgwyy",
@@ -266,507 +190,137 @@
       };
 
       const CATALOGUE = [
-        {
-          id: "katjes_200",
-          name: "Katjes 200g",
-          image: "https://static01.galaxus.com/productimages/5/9/8/5/7/8/7/1/2/4/4/9/8/3/9/3/6/2/6/28cc3980-3257-4af3-9dca-5643999ce563_cropped.jpg_720.avif"
-        },
-        {
-          id: "katjes_100",
-          name: "Katjes 100g",
-          image: "https://assets.brack.ch/images2/6/9/7/188883796/188883796_xxl.jpg"
-        }
+        { id: "katjes_200", name: "Katjes 200g", image: "https://static01.galaxus.com/productimages/5/9/8/5/7/8/7/1/2/4/4/9/8/3/9/3/6/2/6/28cc3980-3257-4af3-9dca-5643999ce563_cropped.jpg_720.avif" },
+        { id: "katjes_100", name: "Katjes 100g", image: "https://assets.brack.ch/images2/6/9/7/188883796/188883796_xxl.jpg" },
+        { id: "ice_tea_peche", name: "Ice Tea Peche", image: "/mnt/data/Screenshot_12-2-2026_183724_www.bing.com.jpeg" },
+        { id: "dragibus", name: "Haribo Dragibus", image: "/mnt/data/Screenshot_12-2-2026_183623_www.bing.com.jpeg" },
+        { id: "tetes_brulees", name: "Tetes Brulees Boules", image: "/mnt/data/Screenshot_12-2-2026_183750_www.bing.com.jpeg" }
       ];
 
-      const DELIVERY_FEES = {
-        pinchat: 0,
-        acacias: 2,
-        carouge: 2,
-        vessy: 3
-      };
-
+      const DELIVERY_FEES = { pinchat: 0, acacias: 2, carouge: 2, vessy: 3 };
       const $ = (id) => document.getElementById(id);
-
-      const els = {
-        productsGrid: $("productsGrid"),
-        cartEmpty: $("cartEmpty"),
-        cartList: $("cartList"),
-        cartItems: $("cartItems"),
-        subtotal: $("subtotal"),
-        discount: $("discount"),
-        total: $("total"),
-        clearCartBtn: $("clearCartBtn"),
-
-        promoCode: $("promoCode"),
-        applyPromoBtn: $("applyPromoBtn"),
-        promoMsg: $("promoMsg"),
-        promoStatus: $("promoStatus"),
-
-        form: $("orderForm"),
-        name: $("name"),
-        contact: $("contact"),
-        location: $("location"),
-        allergyCheck: $("allergyCheck"),
-        submitBtn: $("submitBtn"),
-        errorBox: $("errorBox"),
-
-        receipt: $("receipt"),
-        receiptId: $("receiptId"),
-        rName: $("rName"),
-        rContact: $("rContact"),
-        rLocation: $("rLocation"),
-        rItems: $("rItems"),
-        rTotal: $("rTotal"),
-        rTime: $("rTime")
-      };
-
-      const state = {
-        cart: new Map(),
-        promo: { code: "", discount: 0, valid: false, expiresAt: 0 }
-      };
+      const els = { productsGrid: $("productsGrid"), cartEmpty: $("cartEmpty"), cartList: $("cartList"), cartItems: $("cartItems"), subtotal: $("subtotal"), discount: $("discount"), total: $("total"), clearCart: $("clearCart"), promoCode: $("promoCode"), applyPromoBtn: $("applyPromoBtn"), promoMsg: $("promoMsg"), orderForm: $("orderForm"), name: $("name"), contact: $("contact"), location: $("location"), allergyCheck: $("allergyCheck"), submitBtn: $("submitBtn"), errorBox: $("errorBox"), receipt: $("receipt"), receiptId: $("receiptId"), rName: $("rName"), rContact: $("rContact"), rLocation: $("rLocation"), rItems: $("rItems"), rTotal: $("rTotal"), rTime: $("rTime") };
+      const state = { cart: new Map(), promo: { code: "", discount: 0, valid: false, expiresAt: 0 } };
 
       const money = (n) => `${Number(n).toFixed(2)} CHF`;
-
-      function remainingStock(productId) {
-        const base = Number(CONFIG.stock[productId] ?? 0);
-        const inCart = Number(state.cart.get(productId) ?? 0);
-        return Math.max(0, base - inCart);
-      }
-
-      function calcSubtotal() {
-        let s = 0;
-        for (const [id, qty] of state.cart.entries()) {
-          const price = Number(CONFIG.prices[id] ?? 0);
-          s += price * qty;
-        }
-        return s;
-      }
-
-      function calcDeliveryFee() {
-        const loc = els.location.value;
-        if (!loc) return 0;
-        return Number(DELIVERY_FEES[loc] ?? 0);
-      }
-
-      function calcDiscount(subtotal) {
-        const now = Date.now();
-        if (!state.promo.valid) return 0;
-        if (!state.promo.code) return 0;
-        if (!(state.promo.expiresAt > now)) return 0;
-        return Math.min(Number(state.promo.discount || 0), subtotal);
-      }
-
-      function canSubmit() {
-        const hasCart = state.cart.size > 0;
-        const hasAllergy = els.allergyCheck.checked;
-        const nameOk = els.name.value.trim().length > 0;
-        const contactOk = els.contact.value.trim().length > 0;
-        const locationOk = els.location.value && els.location.value.length > 0;
-        return hasCart && hasAllergy && nameOk && contactOk && locationOk;
-      }
-
-      function setError(msg) {
-        if (!msg) {
-          els.errorBox.classList.add("hidden");
-          els.errorBox.textContent = "";
-          return;
-        }
-        els.errorBox.textContent = msg;
-        els.errorBox.classList.remove("hidden");
-      }
+      function remainingStock(id) { return Math.max(0, (CONFIG.stock[id] ?? 0) - (state.cart.get(id) ?? 0)); }
+      function calcSubtotal() { let s = 0; for (const [id, qty] of state.cart.entries()) { s += (CONFIG.prices[id] ?? 0) * qty; } return s; }
+      function calcDeliveryFee() { return DELIVERY_FEES[els.location.value] ?? 0; }
+      function calcDiscount(subtotal) { if (!state.promo.valid || Date.now() >= state.promo.expiresAt) return 0; return Math.min(state.promo.discount, subtotal); }
+      function canSubmit() { return state.cart.size > 0 && els.allergyCheck.checked && els.name.value.trim() && els.contact.value.trim() && els.location.value; }
+      function setError(msg) { if (!msg) { els.errorBox.classList.add("hidden"); } els.errorBox.textContent = msg; els.errorBox.classList.toggle("hidden", !msg); }
 
       function updateTotalsUI() {
         const subtotal = calcSubtotal();
         const discount = calcDiscount(subtotal);
         const fee = calcDeliveryFee();
         const total = Math.max(0, subtotal - discount) + fee;
-
         els.subtotal.textContent = money(subtotal);
         els.discount.textContent = money(discount);
         els.total.textContent = money(total);
-
         els.submitBtn.disabled = !canSubmit();
       }
 
       function renderCart() {
         els.cartItems.innerHTML = "";
-
-        if (state.cart.size === 0) {
-          els.cartEmpty.classList.remove("hidden");
-          els.cartList.classList.add("hidden");
-        } else {
-          els.cartEmpty.classList.add("hidden");
-          els.cartList.classList.remove("hidden");
-        }
-
+        if (state.cart.size === 0) { els.cartEmpty.classList.remove("hidden"); els.cartList.classList.add("hidden"); } else { els.cartEmpty.classList.add("hidden"); els.cartList.classList.remove("hidden"); }
         for (const [id, qty] of state.cart.entries()) {
           const p = CATALOGUE.find(x => x.id === id);
-          const name = p ? p.name : id;
-          const unit = Number(CONFIG.prices[id] ?? 0);
-          const lineTotal = unit * qty;
-
           const li = document.createElement("li");
-          li.className = "flex items-start justify-between gap-3";
-
-          const left = document.createElement("div");
-          left.className = "min-w-0";
-          left.innerHTML = `
-            <div class="text-sm font-extrabold truncate">${name}</div>
-            <div class="text-xs text-slate-600 mt-0.5">${money(unit)} x ${qty} | ${money(lineTotal)}</div>
-          `;
-
-          const right = document.createElement("div");
-          right.className = "flex items-center gap-2";
-
-          const minus = document.createElement("button");
-          minus.type = "button";
-          minus.className = "btn btn-ghost py-2 px-3";
-          minus.textContent = "-";
-          minus.addEventListener("click", () => {
-            const cur = Number(state.cart.get(id) ?? 0);
-            const next = cur - 1;
-            if (next <= 0) state.cart.delete(id);
-            else state.cart.set(id, next);
-            renderCart();
-            renderProducts();
-            updateTotalsUI();
-          });
-
-          const qtyBadge = document.createElement("div");
-          qtyBadge.className = "px-3 py-2 rounded-xl bg-slate-100 font-extrabold text-sm min-w-[2.5rem] text-center";
-          qtyBadge.textContent = String(qty);
-
-          const plus = document.createElement("button");
-          plus.type = "button";
-          plus.className = "btn btn-ghost py-2 px-3";
-          plus.textContent = "+";
-          plus.disabled = remainingStock(id) <= 0;
-          plus.addEventListener("click", () => {
-            if (remainingStock(id) <= 0) return;
-            state.cart.set(id, Number(state.cart.get(id) ?? 0) + 1);
-            renderCart();
-            renderProducts();
-            updateTotalsUI();
-          });
-
-          right.appendChild(minus);
-          right.appendChild(qtyBadge);
-          right.appendChild(plus);
-
-          li.appendChild(left);
-          li.appendChild(right);
+          li.className = "flex items-center justify-between text-sm";
+          li.textContent = `${p.name} x${qty}`;
           els.cartItems.appendChild(li);
         }
-
         updateTotalsUI();
       }
 
       function renderProducts() {
         els.productsGrid.innerHTML = "";
-
         for (const p of CATALOGUE) {
-          const price = Number(CONFIG.prices[p.id] ?? 0);
           const remain = remainingStock(p.id);
-
+          const badgeClass = remain === 0 ? "badge-bad" : (remain <= 2 ? "badge-warn" : "badge-ok");
+          const badgeText = remain === 0 ? "Epuisé" : (remain <= 2 ? "Stock faible" : "En stock");
           const card = document.createElement("article");
-          card.className = "card overflow-hidden shadow-sm";
-
-          const titleText = `${p.name} (${remain} restants)`;
-
-          const stockBadgeClass = remain === 0 ? "badge-bad" : (remain <= 2 ? "badge-warn" : "badge-ok");
-          const stockBadgeText = remain === 0 ? "Épuisé" : (remain <= 2 ? "Stock faible" : "En stock");
-
+          card.className = "rounded-2xl border border-slate-200 bg-white shadow-sm";
           card.innerHTML = `
-            <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
-              <img src="${p.image}" alt="${p.name}" class="h-full w-full object-cover" loading="lazy" />
-            </div>
+            <div class="aspect-[4/3] bg-slate-100 overflow-hidden"><img src="${p.image}" class="h-full w-full object-cover"></div>
             <div class="p-4">
-              <div class="flex items-start justify-between gap-3">
-                <div class="min-w-0">
-                  <h3 class="text-sm font-extrabold truncate">${titleText}</h3>
-                  <div class="mt-1 text-sm font-extrabold">${money(price)}</div>
-                </div>
-                <span class="badge ${stockBadgeClass}">${stockBadgeText}</span>
-              </div>
-
-              <button
-                type="button"
-                class="btn btn-primary w-full mt-4"
-                data-add="${p.id}"
-                ${remain === 0 ? "disabled" : ""}
-              >
-                ${remain === 0 ? "Épuisé" : "Ajouter au panier"}
-              </button>
+              <div class="flex justify-between items-start gap-2">
+                <h3 class="text-sm font-extrabold">${p.name}</h3><span class="badge ${badgeClass}">${badgeText}</span>              </div>
+              <div class="mt-1 text-sm font-extrabold">${money(CONFIG.prices[p.id])}</div>
+              <button data-add="${p.id}" class="btn btn-primary w-full mt-3" ${remain === 0 ? "disabled" : ""}>${remain === 0 ? "Epuisé" : "Ajouter au panier"}</button>
             </div>
           `;
-
           els.productsGrid.appendChild(card);
         }
-
-        els.productsGrid.querySelectorAll("[data-add]").forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const id = btn.getAttribute("data-add");
-            if (!id) return;
-
-            if (remainingStock(id) <= 0) {
-              renderProducts();
-              return;
-            }
-
-            state.cart.set(id, Number(state.cart.get(id) ?? 0) + 1);
-            renderCart();
-            renderProducts();
-            updateTotalsUI();
-          });
-        });
+        els.productsGrid.querySelectorAll("[data-add]").forEach(btn => btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-add");
+          if (remainingStock(id) > 0) { state.cart.set(id, (state.cart.get(id) ?? 0) + 1); renderCart(); renderProducts(); }
+        }));
       }
 
-      function validatePromo(codeRaw) {
-        const code = String(codeRaw || "").trim().toUpperCase();
-        if (!code) return { ok: false, msg: "Veuillez saisir un code." };
-
-        const entry = CONFIG.whaleKeys[code];
+      function validatePromo(code) {
+        const c = String(code).trim().toUpperCase();
+        if (!c) return { ok: false, msg: "Veuillez saisir un code." };
+        const entry = CONFIG.whaleKeys[c];
         if (!entry) return { ok: false, msg: "Code non reconnu." };
-
-        const now = Date.now();
-        const exp = Number(entry.expiresAt ?? 0);
-        if (!(exp > now)) return { ok: false, msg: "Code expiré." };
-
-        const discount = Number(entry.discount ?? 0);
-        if (!(discount > 0)) return { ok: false, msg: "Code invalide." };
-
-        return { ok: true, msg: `Code accepté. Remise de ${money(discount)} appliquée.`, discount, expiresAt: exp, code };
+        if (Date.now() >= entry.expiresAt) return { ok: false, msg: "Code expire." };
+        return { ok: true, msg: `Remise de ${money(entry.discount)} appliquee.`, ...entry, code: c };
       }
 
-      function setPromoUI(valid, msg) {
-        els.promoMsg.textContent = msg || "";
-        if (valid) {
-          els.promoStatus.textContent = "Code promotionnel actif";
-          els.promoStatus.classList.remove("hidden");
-          els.promoStatus.classList.remove("badge-warn");
-          els.promoStatus.classList.add("badge-ok");
-        } else {
-          els.promoStatus.textContent = "Code promotionnel";
-          els.promoStatus.classList.remove("hidden");
-          els.promoStatus.classList.remove("badge-ok");
-          els.promoStatus.classList.add("badge-warn");
-        }
-        if (!msg) {
-          els.promoStatus.classList.add("hidden");
-        }
-      }
+      $("applyPromoBtn").addEventListener("click", () => {
+        const res = validatePromo($("promoCode").value);
+        if (!res.ok) { setError(res.msg); state.promo = { valid: false }; } else { setError(""); state.promo = { valid: true, discount: res.discount, expiresAt: res.expiresAt, code: res.code }; }
+        updateTotalsUI();
+      });
+
+      els.clearCart.addEventListener("click", () => { state.cart.clear(); renderCart(); renderProducts(); updateTotalsUI(); setError(""); });
+
+      ["input","change"].forEach(evt => {
+        els.name.addEventListener(evt, () => { setError(""); updateTotalsUI(); });
+        els.contact.addEventListener(evt, () => { setError(""); updateTotalsUI(); });
+        els.location.addEventListener(evt, () => { setError(""); updateTotalsUI(); });
+        els.allergyCheck.addEventListener(evt, () => { setError(""); updateTotalsUI(); });
+      });
 
       function buildReceiptData() {
-        const subtotal = calcSubtotal();
-        const discount = calcDiscount(subtotal);
-        const fee = calcDeliveryFee();
+        const subtotal = calcSubtotal(), discount = calcDiscount(subtotal), fee = calcDeliveryFee();
         const total = Math.max(0, subtotal - discount) + fee;
-
         const items = Array.from(state.cart.entries()).map(([id, qty]) => {
-          const p = CATALOGUE.find(x => x.id === id);
-          const unit = Number(CONFIG.prices[id] ?? 0);
-          return {
-            id,
-            nom: p ? p.name : id,
-            quantite: qty,
-            prix_unitaire_chf: Number(unit.toFixed(2)),
-            total_ligne_chf: Number((unit * qty).toFixed(2))
-          };
+          return { id, nom: CATALOGUE.find(x => x.id === id).name, quantite: qty, total_ligne: Number(((CONFIG.prices[id] ?? 0) * qty).toFixed(2)) };
         });
-
-        const orderTime = new Date();
-        const timestamp = orderTime.toISOString();
-        const receiptId = `BP-${orderTime.getUTCFullYear()}${String(orderTime.getUTCMonth() + 1).padStart(2, "0")}${String(orderTime.getUTCDate()).padStart(2, "0")}-${Math.random().toString(16).slice(2, 8).toUpperCase()}`;
-
-        return {
-          receiptId,
-          timestamp,
-          client: {
-            nom: els.name.value.trim(),
-            contact: els.contact.value.trim(),
-            lieu: els.location.value
-          },
-          promo: state.promo.valid ? {
-            code: state.promo.code,
-            discount_chf: Number((state.promo.discount || 0).toFixed(2)),
-            expiresAt: state.promo.expiresAt
-          } : null,
-          pricing: {
-            sous_total_chf: Number(subtotal.toFixed(2)),
-            remise_chf: Number(discount.toFixed(2)),
-            frais_livraison_chf: Number(fee.toFixed(2)),
-            total_final_chf: Number(total.toFixed(2))
-          },
-          allergy_confirmation: els.allergyCheck.checked === true,
-          items
-        };
+        const now = new Date();
+        const receiptId = `BP-${now.getFullYear()}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${now.getTime()}`;
+        return { receiptId, client: { nom: els.name.value, contact: els.contact.value, lieu: els.location.value }, items, pricing: { sous_total: subtotal, remise: discount, frais: fee, total }, timestamp: now.toISOString(), allergyConfirm: els.allergyCheck.checked };
       }
 
-      async function postJson(url, payload) {
-        const res = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (!res.ok) {
-          let detail = "";
-          try {
-            const data = await res.json();
-            if (data && data.errors && data.errors.length) detail = data.errors[0].message || "";
-          } catch (_) {}
-          throw new Error(detail || "Erreur lors de l'envoi.");
-        }
-        return res;
+      async function postJson(url, data) {
+        await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       }
 
-      async function sendToDiscord(webhookUrl, receiptData) {
-        if (!webhookUrl || webhookUrl.includes("PcTDGCVEml8CEnt5tK4KwSIF4xafiXe7aFqBM4nO4Z-oVWAfTFZqohREasT62SuOnzjP")) return;
-
-        const lines = [];
-        lines.push(`Recu Numerique ${receiptData.receiptId}`);
-        lines.push(`Timestamp ${receiptData.timestamp}`);
-        lines.push(`Client ${receiptData.client.nom}`);
-        lines.push(`Contact ${receiptData.client.contact}`);
-        lines.push(`Lieu ${receiptData.client.lieu}`);
-        lines.push(`Allergies confirme ${receiptData.allergy_confirmation ? "Oui" : "Non"}`);
-        lines.push("Articles");
-        receiptData.items.forEach(it => {
-          lines.push(`- ${it.nom} x${it.quantite} | ${it.prix_unitaire_chf.toFixed(2)} CHF | ${it.total_ligne_chf.toFixed(2)} CHF`);
-        });
-        if (receiptData.promo) {
-          lines.push(`Code promo ${receiptData.promo.code} | Remise ${receiptData.pricing.remise_chf.toFixed(2)} CHF`);
-        }
-        lines.push(`Sous total ${receiptData.pricing.sous_total_chf.toFixed(2)} CHF`);
-        lines.push(`Frais livraison ${receiptData.pricing.frais_livraison_chf.toFixed(2)} CHF`);
-        lines.push(`Total final ${receiptData.pricing.total_final_chf.toFixed(2)} CHF`);
-
-        const payload = {
-          content: lines.join("\n")
-        };
-
-        const res = await fetch(webhookUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        if (!res.ok) {
-          throw new Error("Erreur lors de l'envoi vers Discord.");
-        }
-      }
-
-      function showReceipt(receiptData) {
-        els.form.classList.add("hidden");
-        els.receipt.classList.remove("hidden");
-
-        els.receiptId.textContent = receiptData.receiptId;
-        els.rName.textContent = receiptData.client.nom;
-        els.rContact.textContent = receiptData.client.contact;
-        els.rLocation.textContent = receiptData.client.lieu;
-
-        els.rItems.innerHTML = "";
-        receiptData.items.forEach(it => {
+      function showReceipt(data) {
+        els.receiptId.textContent = data.receiptId;
+        $("rName").textContent = data.client.nom;
+        $("rContact").textContent = data.client.contact;
+        $("rLocation").textContent = data.client.lieu;
+        $("rItems").innerHTML = "";
+        data.items.forEach(it => {
           const li = document.createElement("li");
-          li.textContent = `${it.nom} x${it.quantite} | ${it.total_ligne_chf.toFixed(2)} CHF`;
-          els.rItems.appendChild(li);
+          li.textContent = `${it.nom} x${it.quantite} | ${money(it.total_ligne)}`;
+          $("rItems").appendChild(li);
         });
-
-        els.rTotal.textContent = `${receiptData.pricing.total_final_chf.toFixed(2)} CHF`;
-        els.rTime.textContent = receiptData.timestamp;
+        $("rTotal").textContent = money(data.pricing.total);
+        $("rTime").textContent = data.timestamp;
+        $(".orderForm").classList.add("hidden");
+        $("receipt").classList.remove("hidden");
       }
 
-      function resetPromo() {
-        state.promo = { code: "", discount: 0, valid: false, expiresAt: 0 };
-        els.promoCode.value = "";
-        setPromoUI(false, "");
-        updateTotalsUI();
-      }
-
-      els.applyPromoBtn.addEventListener("click", () => {
-        setError("");
-        const check = validatePromo(els.promoCode.value);
-        if (!check.ok) {
-          state.promo = { code: "", discount: 0, valid: false, expiresAt: 0 };
-          setPromoUI(false, check.msg);
-          updateTotalsUI();
-          return;
-        }
-        state.promo = { code: check.code, discount: check.discount, valid: true, expiresAt: check.expiresAt };
-        setPromoUI(true, check.msg);
-        updateTotalsUI();
-      });
-
-      els.clearCartBtn.addEventListener("click", () => {
-        state.cart.clear();
-        renderCart();
-        renderProducts();
-        resetPromo();
-        setError("");
-        updateTotalsUI();
-      });
-
-      ["input", "change"].forEach(evt => {
-        els.name.addEventListener(evt, () => { setError(""); els.submitBtn.disabled = !canSubmit(); });
-        els.contact.addEventListener(evt, () => { setError(""); els.submitBtn.disabled = !canSubmit(); });
-        els.location.addEventListener(evt, () => { setError(""); updateTotalsUI(); });
-        els.allergyCheck.addEventListener(evt, () => { setError(""); els.submitBtn.disabled = !canSubmit(); });
-      });
-
-      els.form.addEventListener("submit", async (e) => {
+      els.orderForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        setError("");
-
-        if (state.cart.size === 0) {
-          setError("Veuillez ajouter au moins un article au panier.");
-          return;
-        }
-        if (!els.location.value) {
-          setError("Veuillez sélectionner un lieu de livraison.");
-          return;
-        }
-        if (!els.allergyCheck.checked) {
-          setError("Veuillez confirmer la prise de connaissance des ingrédients et des risques d'allergies.");
-          return;
-        }
-
-        for (const [id] of state.cart.entries()) {
-          const remain = remainingStock(id);
-          if (remain < 0) {
-            setError("Le stock a changé. Veuillez vérifier votre panier.");
-            return;
-          }
-        }
-
-        const receiptData = buildReceiptData();
-
-        const formspreeUrl = CONFIG.endpoints.formspree;
-        const discordUrl = CONFIG.endpoints.discordWebhook;
-
-        els.submitBtn.disabled = true;
-        els.submitBtn.textContent = "Envoi en cours";
-
-        try {
-          if (formspreeUrl && !formspreeUrl.includes("XXXXXXXX")) {
-            await postJson(formspreeUrl, receiptData);
-          } else {
-            await new Promise(r => setTimeout(r, 350));
-          }
-
-          try {
-            await sendToDiscord(discordUrl, receiptData);
-          } catch (_) {
-            /* Discord optionnel */
-          }
-
-          showReceipt(receiptData);
-        } catch (err) {
-          setError(err && err.message ? err.message : "Erreur lors de l'envoi. Veuillez réessayer.");
-          els.submitBtn.disabled = !canSubmit();
-          els.submitBtn.textContent = "Commander";
-          return;
-        }
-
-        els.submitBtn.textContent = "Commander";
+        const receipt = buildReceiptData();
+        await postJson(CONFIG.endpoints.formspree, receipt);
+        await postJson(CONFIG.endpoints.discordWebhook, { content: JSON.stringify(receipt,null,2) });
+        showReceipt(receipt);
       });
 
       renderProducts();
