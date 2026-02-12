@@ -6,6 +6,7 @@
     <title>Bonbons de Pinchat | Boutique</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
       html, body { height: 100%; }
       .btn { border-radius: 0.8rem; font-weight: 700; font-size: 0.95rem; }
@@ -31,7 +32,7 @@
             <div>
               <div class="text-base font-extrabold">Bonbons de Pinchat</div>
               <div class="text-xs text-slate-600">
-                Livraison pour les élèves de Pinchat et les habitants des Acacias, Carouge et zones environnantes. Pinchat est en dehors du Preau.
+                Livraison pour les eleves de Pinchat et les habitants des Acacias, Carouge et zones environnantes. Pinchat est en dehors du Preau.
               </div>
             </div>
           </div>
@@ -48,15 +49,15 @@
         <section class="lg:col-span-7">
           <div class="rounded-2xl border border-slate-200 bg-white p-5">
             <h2 class="text-xl font-extrabold">Catalogue</h2>
-            <p class="mt-1 text-sm text-slate-600">Sélectionnez vos articles et ajoutez-les au panier.</p>
+            <p class="mt-1 text-sm text-slate-600">Selectionnez vos articles et ajoutez-les au panier.</p>
             <div id="productsGrid" class="mt-5 grid gap-4 sm:grid-cols-2"></div>
           </div>
 
           <div class="rounded-2xl border border-slate-200 bg-white p-5 mt-6">
             <h3 class="font-extrabold text-lg">Informations de livraison</h3>
             <ul class="mt-2 text-sm text-slate-700 list-disc pl-5 space-y-1">
-              <li>Paiement en espèces uniquement à la livraison.</li>
-              <li>Veuillez vérifier les ingrédients si vous avez des allergies.</li>
+              <li>Paiement en especes uniquement a la livraison.</li>
+              <li>Veuillez verifier les ingredients si vous avez des allergies.</li>
               <li>La confirmation allergies est obligatoire avant l’envoi de la commande.</li>
             </ul>
           </div>
@@ -92,7 +93,7 @@
               <div class="rounded-2xl bg-white border border-slate-200 p-4">
                 <label class="block text-sm font-extrabold" for="promoCode">Code promotionnel</label>
                 <div class="mt-2 flex gap-2">
-                  <input id="promoCode" type="text" class="input" placeholder="Exemple: CODE-1234" />
+                  <input id="promoCode" type="text" class="input" placeholder="Exemple RIZ-FEB10" />
                   <button id="applyPromoBtn" type="button" class="btn btn-ghost">Appliquer</button>
                 </div>
                 <p id="promoMsg" class="mt-1 text-xs text-slate-600"></p>
@@ -101,17 +102,17 @@
 
             <form id="orderForm" class="mt-5 space-y-4">
               <div>
-                <label for="name" class="block text-sm font-extrabold">Nom et prénom</label>
+                <label class="block text-sm font-extrabold" for="name">Nom et prenom</label>
                 <input type="text" id="name" class="input mt-2" required />
               </div>
 
               <div>
-                <label for="contact" class="block text-sm font-extrabold">Coordonnees de contact</label>
+                <label class="block text-sm font-extrabold" for="contact">Coordonnees de contact</label>
                 <input type="text" id="contact" class="input mt-2" required />
               </div>
 
               <div>
-                <label for="location" class="block text-sm font-extrabold">Lieu de livraison</label>
+                <label class="block text-sm font-extrabold" for="location">Lieu de livraison</label>
                 <select id="location" class="input mt-2" required>
                   <option value="" disabled selected>Selectionnez un lieu</option>
                   <option value="pinchat">Pinchat</option>
@@ -181,7 +182,7 @@
           tetes_brulees: 4
         },
         whaleKeys: {
-          "RIZ-FEB10": { discount: 0.20, expiresAt: 1771088530000 }
+          "RIZ-FEB10": { discount: 0.40, expiresAt: 1760000000000 }
         },
         endpoints: {
           formspree: "https://formspree.io/f/mvzbgwyy",
@@ -190,44 +191,49 @@
       };
 
       const CATALOGUE = [
-        { id: "katjes_200", name: "Katjes 200g", image: "https://static01.galaxus.com/productimages/5/9/8/5/7/8/7/1/2/4/4/9/8/3/9/3/6/2/6/28cc3980-3257-4af3-9dca-5643999ce563_cropped.jpg_720.avif" },
-        { id: "katjes_100", name: "Katjes 100g", image: "https://assets.brack.ch/images2/6/9/7/188883796/188883796_xxl.jpg" },
-        { id: "ice_tea_peche", name: "Ice Tea Peche", image: "/mnt/data/Screenshot_12-2-2026_183724_www.bing.com.jpeg" },
-        { id: "dragibus", name: "Haribo Dragibus", image: "/mnt/data/Screenshot_12-2-2026_183623_www.bing.com.jpeg" },
-        { id: "tetes_brulees", name: "Tetes Brulees Boules", image: "/mnt/data/Screenshot_12-2-2026_183750_www.bing.com.jpeg" }
+        { id: "katjes_200", name: "Katjes 200g", image: "https://static01.galaxus.com/productimages/..." },
+        { id: "katjes_100", name: "Katjes 100g", image: "https://assets.brack.ch/images2/..." },
+        { id: "ice_tea_peche", name: "Ice Tea Peche", image: "https://i.imgur.com/DM3jeHi.jpeg" },
+        { id: "dragibus", name: "Haribo Dragibus", image: "https://i.imgur.com/kKBfxsr.jpeg" },
+        { id: "tetes_brulees", name: "Tetes Brulees Boules", image: "https://i.imgur.com/nN6iKIa.jpeg" }
       ];
 
       const DELIVERY_FEES = { pinchat: 0, acacias: 2, carouge: 2, vessy: 3 };
       const $ = (id) => document.getElementById(id);
-      const els = { productsGrid: $("productsGrid"), cartEmpty: $("cartEmpty"), cartList: $("cartList"), cartItems: $("cartItems"), subtotal: $("subtotal"), discount: $("discount"), total: $("total"), clearCart: $("clearCart"), promoCode: $("promoCode"), applyPromoBtn: $("applyPromoBtn"), promoMsg: $("promoMsg"), orderForm: $("orderForm"), name: $("name"), contact: $("contact"), location: $("location"), allergyCheck: $("allergyCheck"), submitBtn: $("submitBtn"), errorBox: $("errorBox"), receipt: $("receipt"), receiptId: $("receiptId"), rName: $("rName"), rContact: $("rContact"), rLocation: $("rLocation"), rItems: $("rItems"), rTotal: $("rTotal"), rTime: $("rTime") };
+
+      const els = {
+        productsGrid: $("productsGrid"), cartEmpty: $("cartEmpty"), cartList: $("cartList"), cartItems: $("cartItems"),
+        subtotal: $("subtotal"), discount: $("discount"), total: $("total"), clearCart: $("clearCart"),
+        promoCode: $("promoCode"), applyPromoBtn: $("applyPromoBtn"), promoMsg: $("promoMsg"),
+        orderForm: $("orderForm"), name: $("name"), contact: $("contact"), location: $("location"),
+        allergyCheck: $("allergyCheck"), submitBtn: $("submitBtn"), errorBox: $("errorBox"),
+        receipt: $("receipt"), receiptId: $("receiptId"), rName: $("rName"), rContact: $("rContact"),
+        rLocation: $("rLocation"), rItems: $("rItems"), rTotal: $("rTotal"), rTime: $("rTime")
+      };
+
       const state = { cart: new Map(), promo: { code: "", discount: 0, valid: false, expiresAt: 0 } };
 
-      const money = (n) => `${Number(n).toFixed(2)} CHF`;
+      const money = (n) => `${n.toFixed(2)} CHF`;
       function remainingStock(id) { return Math.max(0, (CONFIG.stock[id] ?? 0) - (state.cart.get(id) ?? 0)); }
-      function calcSubtotal() { let s = 0; for (const [id, qty] of state.cart.entries()) { s += (CONFIG.prices[id] ?? 0) * qty; } return s; }
+      function calcSubtotal() { let s = 0; for (const [id, qty] of state.cart.entries()) s += (CONFIG.prices[id] ?? 0) * qty; return s; }
       function calcDeliveryFee() { return DELIVERY_FEES[els.location.value] ?? 0; }
-      function calcDiscount(subtotal) { if (!state.promo.valid || Date.now() >= state.promo.expiresAt) return 0; return Math.min(state.promo.discount, subtotal); }
+      function calcDiscount(sub) { return state.promo.valid && Date.now() < state.promo.expiresAt ? Math.min(state.promo.discount, sub) : 0; }
       function canSubmit() { return state.cart.size > 0 && els.allergyCheck.checked && els.name.value.trim() && els.contact.value.trim() && els.location.value; }
-      function setError(msg) { if (!msg) { els.errorBox.classList.add("hidden"); } els.errorBox.textContent = msg; els.errorBox.classList.toggle("hidden", !msg); }
+      function setError(msg) { els.errorBox.textContent = msg; els.errorBox.classList.toggle("hidden", !msg); }
 
       function updateTotalsUI() {
-        const subtotal = calcSubtotal();
-        const discount = calcDiscount(subtotal);
-        const fee = calcDeliveryFee();
-        const total = Math.max(0, subtotal - discount) + fee;
-        els.subtotal.textContent = money(subtotal);
-        els.discount.textContent = money(discount);
-        els.total.textContent = money(total);
+        const sub = calcSubtotal(), disc = calcDiscount(sub), fee = calcDeliveryFee(), tot = Math.max(0, sub - disc) + fee;
+        els.subtotal.textContent = money(sub); els.discount.textContent = money(disc); els.total.textContent = money(tot);
         els.submitBtn.disabled = !canSubmit();
       }
 
       function renderCart() {
         els.cartItems.innerHTML = "";
-        if (state.cart.size === 0) { els.cartEmpty.classList.remove("hidden"); els.cartList.classList.add("hidden"); } else { els.cartEmpty.classList.add("hidden"); els.cartList.classList.remove("hidden"); }
+        if (!state.cart.size) { els.cartEmpty.classList.remove("hidden"); els.cartList.classList.add("hidden"); } else { els.cartEmpty.classList.add("hidden"); els.cartList.classList.remove("hidden"); }
         for (const [id, qty] of state.cart.entries()) {
           const p = CATALOGUE.find(x => x.id === id);
           const li = document.createElement("li");
-          li.className = "flex items-center justify-between text-sm";
+          li.className = "flex justify-between text-sm";
           li.textContent = `${p.name} x${qty}`;
           els.cartItems.appendChild(li);
         }
@@ -237,40 +243,40 @@
       function renderProducts() {
         els.productsGrid.innerHTML = "";
         for (const p of CATALOGUE) {
-          const remain = remainingStock(p.id);
-          const badgeClass = remain === 0 ? "badge-bad" : (remain <= 2 ? "badge-warn" : "badge-ok");
-          const badgeText = remain === 0 ? "Epuisé" : (remain <= 2 ? "Stock faible" : "En stock");
+          const rem = remainingStock(p.id);
+          const bClass = rem === 0 ? "badge-bad" : (rem <= 2 ? "badge-warn" : "badge-ok");
+          const bText = rem === 0 ? "Epuisé" : (rem <= 2 ? "Stock faible" : "En stock");
           const card = document.createElement("article");
           card.className = "rounded-2xl border border-slate-200 bg-white shadow-sm";
           card.innerHTML = `
             <div class="aspect-[4/3] bg-slate-100 overflow-hidden"><img src="${p.image}" class="h-full w-full object-cover"></div>
             <div class="p-4">
               <div class="flex justify-between items-start gap-2">
-                <h3 class="text-sm font-extrabold">${p.name}</h3><span class="badge ${badgeClass}">${badgeText}</span>              </div>
+                <h3 class="text-sm font-extrabold">${p.name}</h3><span class="badge ${bClass}">${bText}</span>
+              </div>
               <div class="mt-1 text-sm font-extrabold">${money(CONFIG.prices[p.id])}</div>
-              <button data-add="${p.id}" class="btn btn-primary w-full mt-3" ${remain === 0 ? "disabled" : ""}>${remain === 0 ? "Epuisé" : "Ajouter au panier"}</button>
+              <button data-add="${p.id}" class="btn btn-primary w-full mt-3" ${rem === 0 ? "disabled" : ""}>${rem === 0 ? "Epuisé" : "Ajouter au panier"}</button>
             </div>
           `;
           els.productsGrid.appendChild(card);
         }
         els.productsGrid.querySelectorAll("[data-add]").forEach(btn => btn.addEventListener("click", () => {
-          const id = btn.getAttribute("data-add");
-          if (remainingStock(id) > 0) { state.cart.set(id, (state.cart.get(id) ?? 0) + 1); renderCart(); renderProducts(); }
+          const id = btn.getAttribute("data-add"); if (remainingStock(id) > 0) { state.cart.set(id, (state.cart.get(id) ?? 0) + 1); renderCart(); renderProducts(); }
         }));
       }
 
-      function validatePromo(code) {
-        const c = String(code).trim().toUpperCase();
-        if (!c) return { ok: false, msg: "Veuillez saisir un code." };
-        const entry = CONFIG.whaleKeys[c];
+      function validatePromo(val) {
+        const code = String(val).trim().toUpperCase();
+        const entry = CONFIG.whaleKeys[code];
+        if (!code) return { ok: false, msg: "Veuillez saisir un code." };
         if (!entry) return { ok: false, msg: "Code non reconnu." };
         if (Date.now() >= entry.expiresAt) return { ok: false, msg: "Code expire." };
-        return { ok: true, msg: `Remise de ${money(entry.discount)} appliquee.`, ...entry, code: c };
+        return { ok: true, msg: `Remise de ${money(entry.discount)} appliquee.`, discount: entry.discount, expiresAt: entry.expiresAt };
       }
 
-      $("applyPromoBtn").addEventListener("click", () => {
-        const res = validatePromo($("promoCode").value);
-        if (!res.ok) { setError(res.msg); state.promo = { valid: false }; } else { setError(""); state.promo = { valid: true, discount: res.discount, expiresAt: res.expiresAt, code: res.code }; }
+      els.applyPromoBtn.addEventListener("click", () => {
+        const res = validatePromo(els.promoCode.value);
+        if (!res.ok) { setError(res.msg); state.promo.valid = false; } else { setError(""); state.promo = { valid: true, discount: res.discount, expiresAt: res.expiresAt }; }
         updateTotalsUI();
       });
 
@@ -283,49 +289,23 @@
         els.allergyCheck.addEventListener(evt, () => { setError(""); updateTotalsUI(); });
       });
 
-      function buildReceiptData() {
-        const subtotal = calcSubtotal(), discount = calcDiscount(subtotal), fee = calcDeliveryFee();
-        const total = Math.max(0, subtotal - discount) + fee;
-        const items = Array.from(state.cart.entries()).map(([id, qty]) => {
-          return { id, nom: CATALOGUE.find(x => x.id === id).name, quantite: qty, total_ligne: Number(((CONFIG.prices[id] ?? 0) * qty).toFixed(2)) };
-        });
+      function buildReceipt() {
+        const sub = calcSubtotal(), disc = calcDiscount(sub), fee = calcDeliveryFee(), tot = Math.max(0, sub - disc) + fee;
+        const items = Array.from(state.cart.entries()).map(([id, qty]) => ({ nom: CATALOGUE.find(x => x.id === id).name, quantite: qty }));
         const now = new Date();
-        const receiptId = `BP-${now.getFullYear()}${String(now.getMonth()+1).padStart(2,"0")}${String(now.getDate()).padStart(2,"0")}-${now.getTime()}`;
-        return { receiptId, client: { nom: els.name.value, contact: els.contact.value, lieu: els.location.value }, items, pricing: { sous_total: subtotal, remise: discount, frais: fee, total }, timestamp: now.toISOString(), allergyConfirm: els.allergyCheck.checked };
-      }
-
-      async function postJson(url, data) {
-        await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      }
-
-      function showReceipt(data) {
-        els.receiptId.textContent = data.receiptId;
-        $("rName").textContent = data.client.nom;
-        $("rContact").textContent = data.client.contact;
-        $("rLocation").textContent = data.client.lieu;
-        $("rItems").innerHTML = "";
-        data.items.forEach(it => {
-          const li = document.createElement("li");
-          li.textContent = `${it.nom} x${it.quantite} | ${money(it.total_ligne)}`;
-          $("rItems").appendChild(li);
-        });
-        $("rTotal").textContent = money(data.pricing.total);
-        $("rTime").textContent = data.timestamp;
-        $(".orderForm").classList.add("hidden");
-        $("receipt").classList.remove("hidden");
+        return { timestamp: now.toISOString(), items, pricing: { sous_total: sub, remise: disc, frais: fee, total: tot }, client: { nom: els.name.value, contact: els.contact.value, lieu: els.location.value }, allergy: els.allergyCheck.checked };
       }
 
       els.orderForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const receipt = buildReceiptData();
-        await postJson(CONFIG.endpoints.formspree, receipt);
-        await postJson(CONFIG.endpoints.discordWebhook, { content: JSON.stringify(receipt,null,2) });
-        showReceipt(receipt);
+        const data = buildReceipt();
+        await fetch(CONFIG.endpoints.formspree, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+        await fetch(CONFIG.endpoints.discordWebhook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+        renderCart();
       });
 
       renderProducts();
       renderCart();
-      updateTotalsUI();
     </script>
   </body>
 </html>
